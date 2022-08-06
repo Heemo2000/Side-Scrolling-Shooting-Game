@@ -2,13 +2,13 @@
 #
 # Get latest from https://github.com/github/gitignore/blob/main/Unity.gitignore
 #
-/[Ll]ibrary/
-/[Tt]emp/
-/[Oo]bj/
-/[Bb]uild/
-/[Bb]uilds/
-/[Ll]ogs/
-/[Uu]ser[Ss]ettings/
+Side Scrolling Shooting Game/[Ll]ibrary/
+Side Scrolling Shooting Game/[Tt]emp/
+Side Scrolling Shooting Game/[Oo]bj/
+Side Scrolling Shooting Game/[Bb]uild/
+Side Scrolling Shooting Game/[Bb]uilds/
+Side Scrolling Shooting Game/[Ll]ogs/
+Side Scrolling Shooting Game/[Uu]ser[Ss]ettings/
 
 # MemoryCaptures can get excessive in size.
 # They also could contain extremely sensitive data
