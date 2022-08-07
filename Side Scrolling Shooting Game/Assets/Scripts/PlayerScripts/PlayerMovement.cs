@@ -54,6 +54,9 @@ public class PlayerMovement : MonoBehaviour
          _currentRotation = 0f;
          _velocityY = 0f;
     }
+    private void Start() 
+    {
+    }
 
     private void FixedUpdate() 
     {

@@ -8,6 +8,8 @@ public class Bullet : MonoBehaviour
     [SerializeField]private float moveSpeed = 5f;
     [Min(0f)]
     [SerializeField]private float destroyTime = 2f;
+
+    [SerializeField]private LayerMask ignoreMask;
     private Rigidbody _bulletRB;
 
     private Collider _bulletCollider;
@@ -36,7 +38,7 @@ public class Bullet : MonoBehaviour
 
     private void OnCollisionEnter(Collision other) 
     {
-        if(gameObject.layer == other.gameObject.layer)
+        if(gameObject.layer == ignoreMask.value)
         {
             Physics.IgnoreCollision(_bulletCollider,other.collider);
         }

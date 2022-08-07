@@ -18,6 +18,9 @@ public class PlayerAim : MonoBehaviour
 
         _mousePointerPrimitive = GameObject.CreatePrimitive(PrimitiveType.Sphere);
 
+        _mousePointerPrimitive.GetComponent<Collider>().enabled = false;
+
+        
         var headIKSourceObjects = headIK.data.sourceObjects;
         var spineIKSourceObjects = spineIK.data.sourceObjects;
         var rightHandIKSourceObjects = rightHandIK.data.sourceObjects;

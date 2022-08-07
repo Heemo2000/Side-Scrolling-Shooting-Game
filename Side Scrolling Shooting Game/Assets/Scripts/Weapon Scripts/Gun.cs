@@ -21,4 +21,12 @@ public class Gun : MonoBehaviour
             _nextTimeToFire = Time.time + fireInterval;
         }
     }
+
+    public void SetBulletPrefab(Bullet bulletPrefab)
+    {
+        if(bulletPrefab != null)
+        {
+            this.bulletPrefab = bulletPrefab;
+        }
+    }
 }
