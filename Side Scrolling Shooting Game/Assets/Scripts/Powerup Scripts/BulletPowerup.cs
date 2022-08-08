@@ -16,11 +16,10 @@ public class BulletPowerup : MonoBehaviour
     }
     private void OnCollisionEnter(Collision other) 
     {
-        Debug.Log("Collided object : " + other.gameObject.name);
-        Player player = other.gameObject.GetComponent<Player>();
-        if(player != null)
+        PlayerCollisionDetection detection = other.gameObject.GetComponent<PlayerCollisionDetection>();
+        if(detection != null)
         {
-            player.TakeDamage(1f);
+            detection.GetPlayerReference().TakeDamage(1f);
             Destroy(gameObject);
         }
     }

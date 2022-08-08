@@ -49,6 +49,7 @@ public class PlayerMovement : MonoBehaviour
     public Vector3 MouseWorldPos { get => _mouseWorldPos; }
     void Awake() {
          _controller = GetComponent<CharacterController>();
+         _controller.detectCollisions = false;
          _playerInput = GetComponent<PlayerInput>();
          _plane = new Plane(Vector3.forward,transform.position);
          _currentRotation = 0f;
@@ -76,6 +77,7 @@ public class PlayerMovement : MonoBehaviour
         Vector3 mouseOnScreenPos = context.ReadValue<Vector2>();
 
         Vector3 viewPort = _playerInput.camera.ScreenToViewportPoint(mouseOnScreenPos);
+
         bool isMousePointerInside = (viewPort.x >= 0f && viewPort.x <= 1f) && (viewPort.y >= 0f && viewPort.y <= 1f);
         
         if(!isMousePointerInside)
@@ -139,6 +141,7 @@ public class PlayerMovement : MonoBehaviour
         
         playerAnimator.SetFloat("MoveInput",animMoveInput);
         HandleRotation();
+        
         
         _controller.Move(Vector3.right * _smoothedXInput * moveSpeed * Time.fixedDeltaTime);
         _controller.Move(Vector3.up * _velocityY * Time.fixedDeltaTime);

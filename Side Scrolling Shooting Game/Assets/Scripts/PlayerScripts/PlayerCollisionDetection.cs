@@ -6,7 +6,7 @@ public class PlayerCollisionDetection : MonoBehaviour
 {
     [SerializeField]private Player player;
 
-    private Player GetPlayerReference()
+    public Player GetPlayerReference()
     {
         return player;
     }
