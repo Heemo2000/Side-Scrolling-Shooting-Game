@@ -54,9 +54,6 @@ public class PlayerMovement : MonoBehaviour
          _currentRotation = 0f;
          _velocityY = 0f;
     }
-    private void Start() 
-    {
-    }
 
     private void FixedUpdate() 
     {
@@ -79,7 +76,6 @@ public class PlayerMovement : MonoBehaviour
         Vector3 mouseOnScreenPos = context.ReadValue<Vector2>();
 
         Vector3 viewPort = _playerInput.camera.ScreenToViewportPoint(mouseOnScreenPos);
-
         bool isMousePointerInside = (viewPort.x >= 0f && viewPort.x <= 1f) && (viewPort.y >= 0f && viewPort.y <= 1f);
         
         if(!isMousePointerInside)
@@ -183,11 +179,11 @@ public class PlayerMovement : MonoBehaviour
 
     private bool AlmostOnGround()
     {
-        return Physics.Raycast(groundCheck.position,Vector3.down,maxGroundCheckDist,groundLayer);     
+        return Physics.Raycast(groundCheck.position,Vector3.down,maxGroundCheckDist,~(1 << gameObject.layer));     
     }
     private bool IsGrounded()
     {
-        return Physics.CheckSphere(groundCheck.position,groundCheckDist,groundLayer);
+        return Physics.CheckSphere(groundCheck.position,groundCheckDist,~(1 << gameObject.layer));
     }
 
     private void OnDrawGizmos() 

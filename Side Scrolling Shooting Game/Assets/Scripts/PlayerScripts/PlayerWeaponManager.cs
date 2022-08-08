@@ -1,17 +1,18 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
-
+using Cinemachine;
 public class PlayerWeaponManager : MonoBehaviour
 {
     [SerializeField]private Gun gun;
     [SerializeField]private LayerMask ignoreMask;
+
+    [SerializeField]private CinemachineImpulseSource shootImpulse;
     private bool _firePressed = false;
+    
 
     private void Start() 
     {
-        
+        gun.OnFire += GenerateFireShake;
     }
     private void Update() {
         if(_firePressed)
@@ -30,19 +31,14 @@ public class PlayerWeaponManager : MonoBehaviour
         gun.Fire();
     }
 
-    private void OnControllerColliderHit(ControllerColliderHit hit) 
+    private void OnDestroy() 
     {
-        BulletPowerup powerup = hit.gameObject.GetComponent<BulletPowerup>();
-        if(powerup != null)
-        {
-            gun.SetBulletPrefab(powerup.GetBulletPrefab());
-        }
+        gun.OnFire -= GenerateFireShake;    
+    }
 
-        int hitLayerMaskValue = 1 << hit.gameObject.layer;
-        if((hitLayerMaskValue & ignoreMask.value) == 0)
-        {
-            Destroy(hit.gameObject);
-        }
-            
+    private void GenerateFireShake()
+    {
+        Vector3 fireShakeVelocity = Vector3.forward * Random.Range(0.0f,1.0f);
+        shootImpulse.GenerateImpulse(fireShakeVelocity);
     }
 }
