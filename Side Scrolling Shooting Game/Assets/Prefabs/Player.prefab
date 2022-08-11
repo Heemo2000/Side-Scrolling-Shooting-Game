@@ -708,8 +708,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1.6, y: 3, z: 1.6}
-  m_Center: {x: 0, y: 1.5, z: 0}
+  m_Size: {x: 1.6, y: 2.9026299, z: 1.6}
+  m_Center: {x: 0, y: 1.5486851, z: 0}
 --- !u!1 &2064733924
 GameObject:
   m_ObjectHideFlags: 0
@@ -955,7 +955,6 @@ GameObject:
   - component: {fileID: 6815911563266768096}
   - component: {fileID: 236370015}
   - component: {fileID: 6815911563266768105}
-  - component: {fileID: 6815911563266768111}
   m_Layer: 3
   m_Name: Player
   m_TagString: Untagged
@@ -995,7 +994,7 @@ CharacterController:
   m_Enabled: 1
   serializedVersion: 2
   m_Height: 3
-  m_Radius: 0.75
+  m_Radius: 0.6
   m_SlopeLimit: 45
   m_StepOffset: 0.3
   m_SkinWidth: 0.08
@@ -1115,9 +1114,6 @@ MonoBehaviour:
   groundCheck: {fileID: 6815911563730132135}
   groundCheckDist: 0.1
   maxGroundCheckDist: 0.8
-  groundLayer:
-    serializedVersion: 2
-    m_Bits: 64
   jumpHeight: 2
   fallMultiplier: 3
   playerAnimator: {fileID: 2823826751439880560}
@@ -1180,22 +1176,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxHealth: 20
---- !u!54 &6815911563266768111
-Rigidbody:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6815911563285318468}
-  serializedVersion: 2
-  m_Mass: 1
-  m_Drag: 0
-  m_AngularDrag: 0.05
-  m_UseGravity: 1
-  m_IsKinematic: 0
-  m_Interpolate: 0
-  m_Constraints: 0
-  m_CollisionDetection: 0
 --- !u!1 &6815911563730132134
 GameObject:
   m_ObjectHideFlags: 0

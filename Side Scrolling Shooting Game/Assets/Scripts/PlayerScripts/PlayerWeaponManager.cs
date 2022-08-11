@@ -12,7 +12,7 @@ public class PlayerWeaponManager : MonoBehaviour
 
     private void Start() 
     {
-        gun.OnFire += GenerateFireShake;
+        gun.OnBulletShoot += GenerateFireShake;
     }
     private void Update() {
         if(_firePressed)
@@ -31,9 +31,13 @@ public class PlayerWeaponManager : MonoBehaviour
         gun.Fire();
     }
 
+    public void ChangeBullet(Bullet bullet)
+    {
+        gun.SetBulletPrefab(bullet);
+    }
     private void OnDestroy() 
     {
-        gun.OnFire -= GenerateFireShake;    
+        gun.OnBulletShoot -= GenerateFireShake;    
     }
 
     private void GenerateFireShake()

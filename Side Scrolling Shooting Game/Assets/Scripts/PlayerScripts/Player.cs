@@ -11,9 +11,14 @@ public class Player : MonoBehaviour
 
     [SerializeField]private CinemachineImpulseSource damageImpulse;
 
+    private PlayerWeaponManager _weaponManager;
+
+    public PlayerWeaponManager WeaponManager { get => _weaponManager; }
+
     private void Awake() 
     {
-        _playerHealth = GetComponent<Health>();    
+        _playerHealth = GetComponent<Health>();
+        _weaponManager = GetComponent<PlayerWeaponManager>();    
     }
 
     public void TakeDamage(float damage)
@@ -21,4 +26,5 @@ public class Player : MonoBehaviour
         _playerHealth.OnHealthDamaged(damage);
         damageImpulse.GenerateImpulse();
     }
+    
 }

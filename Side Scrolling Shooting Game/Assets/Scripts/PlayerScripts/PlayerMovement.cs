@@ -22,8 +22,6 @@ public class PlayerMovement : MonoBehaviour
     [Range(0.1f,2.5f)]
     [SerializeField]private float maxGroundCheckDist = 1.0f;
 
-    [SerializeField]private LayerMask groundLayer;
-
     [Min(0f)]
     [SerializeField]private float jumpHeight = 10f;
 
@@ -174,8 +172,7 @@ public class PlayerMovement : MonoBehaviour
         }
 
         if(AlmostOnGround() && isFalling)
-        {
-            Debug.Log("Almost on ground.");       
+        {    
             playerAnimator.SetBool("IsFalling",false);
         }
     }
