@@ -12,12 +12,12 @@ public class Gun : MonoBehaviour
 
     private float _nextTimeToFire = 0.0f;
 
-    public Action OnFire;
+    public Action OnBulletShoot;
     public void Fire()
     {
         if(_nextTimeToFire < Time.time)
         {
-            OnFire?.Invoke();
+            OnBulletShoot?.Invoke();
             Bullet bullet = Instantiate(bulletPrefab,firePoint.position,Quaternion.identity);
             bullet.transform.right = firePoint.right;
             _nextTimeToFire = Time.time + fireInterval;
