@@ -951,10 +951,10 @@ GameObject:
   - component: {fileID: 6815911563285318469}
   - component: {fileID: 6815911563285318471}
   - component: {fileID: 6815911563285318464}
-  - component: {fileID: 1053251892}
   - component: {fileID: 6815911563266768096}
   - component: {fileID: 236370015}
   - component: {fileID: 6815911563266768105}
+  - component: {fileID: 6815911563266768095}
   m_Layer: 3
   m_Name: Player
   m_TagString: Untagged
@@ -1114,25 +1114,9 @@ MonoBehaviour:
   groundCheck: {fileID: 6815911563730132135}
   groundCheckDist: 0.1
   maxGroundCheckDist: 0.8
-  jumpHeight: 2
-  fallMultiplier: 3
+  jumpHeight: 5
+  fallMultiplier: 2
   playerAnimator: {fileID: 2823826751439880560}
---- !u!114 &1053251892
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6815911563285318468}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 38fc0267cbec4d648856ea6339eef089, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  rigBuilder: {fileID: 4362132423043232220}
-  headIK: {fileID: 2107374588}
-  spineIK: {fileID: 819501020}
-  rightHandIK: {fileID: 216439153}
 --- !u!114 &6815911563266768096
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1176,6 +1160,23 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxHealth: 20
+--- !u!114 &6815911563266768095
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6815911563285318468}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e5b0ca544db7d814895b7411bcc3373a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  aimPointerPrefab: {fileID: 0}
+  rigBuilder: {fileID: 4362132423043232220}
+  headIK: {fileID: 2107374588}
+  spineIK: {fileID: 819501020}
+  rightHandIK: {fileID: 216439153}
 --- !u!1 &6815911563730132134
 GameObject:
   m_ObjectHideFlags: 0

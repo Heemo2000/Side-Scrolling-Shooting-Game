@@ -44,14 +44,24 @@ public class PlayerMovement : MonoBehaviour
     private Plane _plane;
     private Vector3 _mouseWorldPos;
 
+    private HumanAimHandler _aimHandler;
+
     public Vector3 MouseWorldPos { get => _mouseWorldPos; }
     void Awake() {
          _controller = GetComponent<CharacterController>();
          _controller.detectCollisions = false;
+         
          _playerInput = GetComponent<PlayerInput>();
+         _aimHandler = GetComponent<HumanAimHandler>();
+
          _plane = new Plane(Vector3.forward,transform.position);
          _currentRotation = 0f;
          _velocityY = 0f;
+    }
+
+    private void LateUpdate() 
+    {
+        _aimHandler.SetAimPosition(_mouseWorldPos);    
     }
 
     private void FixedUpdate() 
