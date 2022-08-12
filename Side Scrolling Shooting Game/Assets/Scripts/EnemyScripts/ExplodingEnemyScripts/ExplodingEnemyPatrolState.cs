@@ -39,7 +39,7 @@ public class ExplodingEnemyPatrolState : IState
         while(_explodingEnemy.enabled)
         {
             
-            if(_explodingEnemy.CheckDistance(_explodingEnemy.transform.position,
+            if(Utility.CheckDistance(_explodingEnemy.transform.position,
                _explodingEnemy.PatrolDestinations[_destinationIndex].position,
                _explodingEnemy.DestCheckDistance))
             {

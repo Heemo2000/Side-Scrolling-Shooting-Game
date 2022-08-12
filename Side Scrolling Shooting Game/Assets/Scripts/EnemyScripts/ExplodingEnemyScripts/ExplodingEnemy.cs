@@ -56,9 +56,9 @@ public class ExplodingEnemy : BaseEnemy
         _chaseState = new ExplodingEnemyChaseState(this);
         _explodeState = new ExplodingEnemyExplodeState(this);
 
-        _enemyStateMachine.AddTransition(_patrolState,_chaseState,()=> CheckDistance(transform.position,Target.position,chaseDistance));
-        _enemyStateMachine.AddTransition(_chaseState,_patrolState,()=> !CheckDistance(transform.position,Target.position,chaseDistance));
-        _enemyStateMachine.AddTransition(_chaseState,_explodeState,()=> CheckDistance(transform.position,Target.position,explodeDistance));
+        _enemyStateMachine.AddTransition(_patrolState,_chaseState,()=> Utility.CheckDistance(transform.position,Target.position,chaseDistance));
+        _enemyStateMachine.AddTransition(_chaseState,_patrolState,()=> !Utility.CheckDistance(transform.position,Target.position,chaseDistance));
+        _enemyStateMachine.AddTransition(_chaseState,_explodeState,()=> Utility.CheckDistance(transform.position,Target.position,explodeDistance));
     }
 
     private void Start() {
@@ -67,17 +67,11 @@ public class ExplodingEnemy : BaseEnemy
     // Update is called once per frame
     void Update()
     {
-        //Debug.Log("Is Stopped ? :" + _agent.isStopped);
         HandleBehaviour();
     }
 
     public override void HandleBehaviour()
     {
         _enemyStateMachine?.OnUpdate();
-    }
-
-    public bool CheckDistance(Vector3 first,Vector3 second,float distance)
-    {
-        return Vector3.SqrMagnitude(second - first) <= distance * distance;
     }
 }

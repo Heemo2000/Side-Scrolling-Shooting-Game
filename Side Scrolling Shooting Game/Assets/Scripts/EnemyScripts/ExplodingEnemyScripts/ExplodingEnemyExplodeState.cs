@@ -11,15 +11,10 @@ public class ExplodingEnemyExplodeState : IState
     }
 
     public void OnEnter()
-    {
-        Debug.Log("Now inside exploding state.");
-        _explodingEnemy.Agent.isStopped = true;
-        _explodingEnemy.Agent.speed = 0f;
-
+    {   
         _explodingEnemy.Animator.SetBool("IsWalking",false);
-        
-        _explodingEnemy.Agent.stoppingDistance = _explodingEnemy.DestCheckDistance;
-        _explodingEnemy.Agent.acceleration = 0f;
+        _explodingEnemy.Animator.SetTrigger("Death");
+        _explodingEnemy.Agent.enabled = false;
         _explodingEnemy.StartCoroutine(ExplodeCoroutine());
     }
 
