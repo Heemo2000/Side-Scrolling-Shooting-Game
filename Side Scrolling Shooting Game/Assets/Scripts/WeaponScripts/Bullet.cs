@@ -33,14 +33,17 @@ public class Bullet : MonoBehaviour
     }
     private void FixedUpdate() 
     {
-        _bulletRB.AddForce(transform.right * moveSpeed,ForceMode.Impulse);   
+        _bulletRB.AddForce(transform.right * moveSpeed,ForceMode.Impulse);
     }
 
-    private void OnCollisionEnter(Collision other) 
+    private void OnTriggerEnter(Collider other) 
     {
-        if(gameObject.layer == ignoreMask.value)
+        int bulletMaskValue = 1 << gameObject.layer;
+        int colliderMaskValue = 1 << other.gameObject.layer;
+        if((bulletMaskValue & ignoreMask.value & colliderMaskValue) != 0)
         {
-            Physics.IgnoreCollision(_bulletCollider,other.collider);
+            Physics.IgnoreCollision(_bulletCollider,other);
+            return;
         }
 
         Destroy(gameObject);

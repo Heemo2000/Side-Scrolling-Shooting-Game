@@ -18,7 +18,7 @@ public class Gun : MonoBehaviour
         if(_nextTimeToFire < Time.time)
         {
             OnBulletShoot?.Invoke();
-            Bullet bullet = Instantiate(bulletPrefab,firePoint.position,Quaternion.identity);
+            Bullet bullet = Instantiate(bulletPrefab,firePoint.position,Quaternion.LookRotation(firePoint.right,Vector3.up));
             bullet.transform.right = firePoint.right;
             _nextTimeToFire = Time.time + fireInterval;
         }
