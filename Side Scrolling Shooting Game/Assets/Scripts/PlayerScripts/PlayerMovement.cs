@@ -59,7 +59,7 @@ public class PlayerMovement : MonoBehaviour
          _velocityY = 0f;
     }
 
-    private void LateUpdate() 
+    private void Update() 
     {
         _aimHandler.SetAimPosition(_mouseWorldPos);    
     }
@@ -106,7 +106,8 @@ public class PlayerMovement : MonoBehaviour
         
         if(IsGrounded())
         {
-            playerAnimator.SetTrigger("JumpTrigger");
+            playerAnimator.SetTrigger(StringHolder.JumpTriggerAnimParameter);
+            Debug.Log("Jump Trigger called on Player");
             _velocityY += _initialJumpVelocity;
         }
     }
@@ -179,6 +180,7 @@ public class PlayerMovement : MonoBehaviour
         else
         {
             _velocityY = 0f;
+            playerAnimator.ResetTrigger(StringHolder.JumpTriggerAnimParameter);
         }
 
         if(AlmostOnGround() && isFalling)

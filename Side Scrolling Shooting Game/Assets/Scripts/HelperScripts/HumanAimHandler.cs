@@ -3,6 +3,9 @@ using UnityEngine.Animations.Rigging;
 
 public class HumanAimHandler : MonoBehaviour
 {
+
+    [Range(1f,100.0f)]
+    [SerializeField]private float aimingSpeed = 50f;
     [SerializeField]private Transform aimPointerPrefab;
     [SerializeField]private RigBuilder rigBuilder;
     [SerializeField]private MultiAimConstraint headIK;
@@ -11,7 +14,8 @@ public class HumanAimHandler : MonoBehaviour
     [SerializeField]private MultiAimConstraint rightHandIK;
     private PlayerMovement _movement;
 
-    GameObject _aimPointerPrimitive;
+    private GameObject _aimPointerPrimitive;
+    private Vector3 _targetAimPosition;
     private void Awake() 
     {
         _movement = GetComponent<PlayerMovement>();
@@ -43,8 +47,13 @@ public class HumanAimHandler : MonoBehaviour
         rigBuilder.Build();
     }
 
+    private void LateUpdate() 
+    {
+        _aimPointerPrimitive.transform.position = Vector3.Lerp(_aimPointerPrimitive.transform.position,
+                                                               _targetAimPosition,aimingSpeed * Time.deltaTime);
+    }
     public void SetAimPosition(Vector3 aimPosition)
     {
-        _aimPointerPrimitive.transform.position = aimPosition;
+        _targetAimPosition = aimPosition;
     }
 }
