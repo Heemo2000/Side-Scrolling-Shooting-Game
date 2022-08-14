@@ -8,5 +8,5 @@ public abstract class BaseEnemy : MonoBehaviour
 
     public Transform Target { get => target; set => target = value; }
 
-    public abstract void HandleBehaviour();
+    protected abstract void HandleBehaviour();
 }

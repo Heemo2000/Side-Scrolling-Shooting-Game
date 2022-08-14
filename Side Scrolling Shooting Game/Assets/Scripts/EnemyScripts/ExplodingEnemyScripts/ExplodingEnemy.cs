@@ -70,7 +70,7 @@ public class ExplodingEnemy : BaseEnemy
         HandleBehaviour();
     }
 
-    public override void HandleBehaviour()
+    protected override void HandleBehaviour()
     {
         _enemyStateMachine?.OnUpdate();
     }
