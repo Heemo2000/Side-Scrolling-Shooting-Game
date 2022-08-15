@@ -25,6 +25,8 @@ public class PlayerMovement : MonoBehaviour
     [Min(0f)]
     [SerializeField]private float jumpHeight = 10f;
 
+    [SerializeField]private LayerMask groundCheckIgnore;
+
     [Min(0f)]
     [SerializeField]private float fallMultiplier = 1.5f;
     [SerializeField]private Animator playerAnimator;
@@ -76,7 +78,11 @@ public class PlayerMovement : MonoBehaviour
 
     public void OnJumpInput(InputAction.CallbackContext context)
     {
-        Jump();   
+        if(context.performed)
+        {
+            Jump();
+        }
+           
     }
 
     public void OnMousePositionInput(InputAction.CallbackContext context)
@@ -112,11 +118,11 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
-    private void CalculateGravity()
+    private void CalculateParameters()
     {
         float halfJumpTime = jumpTime/2f;
         _gravity = (-2f * jumpHeight)/(halfJumpTime * halfJumpTime);
-        _initialJumpVelocity = 2f * jumpHeight/jumpTime;
+        _initialJumpVelocity = 2f * jumpHeight/halfJumpTime;
     }
 
     private void HandleRotation()
@@ -139,7 +145,7 @@ public class PlayerMovement : MonoBehaviour
     
     private void HandleMovement()
     {
-        CalculateGravity();
+        CalculateParameters();
         _smoothedXInput = Mathf.Lerp(_smoothedXInput,_xInput,xInputSpeed * Time.deltaTime);
 
         Vector3 mouseDirection = (_mouseWorldPos - transform.position).normalized;
@@ -180,7 +186,6 @@ public class PlayerMovement : MonoBehaviour
         else
         {
             _velocityY = 0f;
-            playerAnimator.ResetTrigger(StringHolder.JumpTriggerAnimParameter);
         }
 
         if(AlmostOnGround() && isFalling)
@@ -191,19 +196,21 @@ public class PlayerMovement : MonoBehaviour
 
     private bool AlmostOnGround()
     {
-        return Physics.Raycast(groundCheck.position,Vector3.down,maxGroundCheckDist,~(1 << gameObject.layer));     
+        return Physics.CheckSphere(groundCheck.position,maxGroundCheckDist,~groundCheckIgnore.value);     
     }
     private bool IsGrounded()
     {
-        return Physics.CheckSphere(groundCheck.position,groundCheckDist,~(1 << gameObject.layer));
+        return Physics.CheckSphere(groundCheck.position,groundCheckDist,~groundCheckIgnore.value);
     }
 
     private void OnDrawGizmos() 
     {
         if(groundCheck != null)
         {
+            /*
             Gizmos.color = Color.red;
             Gizmos.DrawLine(groundCheck.position,groundCheck.position + Vector3.down * groundCheckDist);
+            */
             Gizmos.color = Color.yellow;
             Gizmos.DrawLine(groundCheck.position,groundCheck.position + Vector3.down * maxGroundCheckDist);
         }
