@@ -33,6 +33,6 @@ public class ExplodingEnemyExplodeState : IState
         yield return new WaitForSeconds(_explodingEnemy.ExplodeTime);
         var explosionEffect = Object.Instantiate(_explodingEnemy.ExplosionEffect,_explodingEnemy.transform.position,Quaternion.identity);
         explosionEffect.Play();
-        Object.Destroy(_explodingEnemy.gameObject);
+        _explodingEnemy.Health.OnDeath?.Invoke();
     }
 }

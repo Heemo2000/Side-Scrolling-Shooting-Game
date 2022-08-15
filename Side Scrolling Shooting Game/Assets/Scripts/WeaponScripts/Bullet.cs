@@ -10,6 +10,9 @@ public class Bullet : MonoBehaviour
     [SerializeField]private float destroyTime = 2f;
 
     [SerializeField]private LayerMask ignoreMask;
+
+    [Min(0f)]
+    [SerializeField]private float damage = 10f;
     private Rigidbody _bulletRB;
 
     private Collider _bulletCollider;
@@ -46,6 +49,8 @@ public class Bullet : MonoBehaviour
             return;
         }
 
+        Health health = other.gameObject.GetComponent<Health>();
+        health?.OnHealthDamaged(damage);
         Destroy(gameObject);
     }
 }

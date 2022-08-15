@@ -15,6 +15,8 @@ public class Health : MonoBehaviour
     public Action<float> OnHealthHealed;
     public Action<float,float> OnCurrentHealthSet;
 
+    public Action OnDeath;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -22,11 +24,16 @@ public class Health : MonoBehaviour
         OnCurrentHealthSet += SetHealth;
         OnHealthDamaged += TakeDamage;
         OnHealthHealed += RepairHealth;
+        OnDeath += Die;
     }
 
     private void SetHealth(float amount,float maxAmount)
     {
         _currentAmount = Mathf.Clamp(amount,0f,maxAmount);
+        if(_currentAmount == 0f)
+        {
+            OnDeath?.Invoke();
+        }
     }
 
     private void TakeDamage(float amount)
@@ -39,9 +46,15 @@ public class Health : MonoBehaviour
         OnCurrentHealthSet?.Invoke(_currentAmount + amount,maxHealth);
     }
 
+    private void Die()
+    {
+        Destroy(gameObject);
+    }
+
     private void OnDestroy() 
     {
         OnCurrentHealthSet -= SetHealth;
         OnHealthDamaged -= TakeDamage;
+        OnDeath -= Die;
     }
 }

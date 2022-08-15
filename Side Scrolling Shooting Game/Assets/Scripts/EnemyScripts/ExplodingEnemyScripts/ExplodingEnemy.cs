@@ -39,10 +39,12 @@ public class ExplodingEnemy : BaseEnemy
     public float PatrolInterval { get => patrolInterval;}
     public Animator Animator { get => animator;}
     public ParticleSystem ExplosionEffect { get => explosionEffect;}
+    public Health Health { get => _health; }
 
     private StateMachine _enemyStateMachine;
 
     private NavMeshAgent _agent;
+    private Health _health;
     private ExplodingEnemyPatrolState _patrolState;
     ExplodingEnemyChaseState _chaseState;
     ExplodingEnemyExplodeState _explodeState;
@@ -50,6 +52,7 @@ public class ExplodingEnemy : BaseEnemy
     private void Awake() 
     {
         _agent = GetComponent<NavMeshAgent>();
+        _health = GetComponent<Health>();
         _enemyStateMachine = new StateMachine();
 
         _patrolState = new ExplodingEnemyPatrolState(this);
