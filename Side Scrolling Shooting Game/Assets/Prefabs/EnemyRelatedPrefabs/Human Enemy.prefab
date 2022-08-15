@@ -78,6 +78,7 @@ GameObject:
   - component: {fileID: 694597451}
   - component: {fileID: 694597452}
   - component: {fileID: 3103454014337520227}
+  - component: {fileID: -5786537207846302923}
   m_Layer: 8
   m_Name: Human Enemy
   m_TagString: Untagged
@@ -276,6 +277,19 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 3
+--- !u!114 &-5786537207846302923
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1421039702527801417}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6b24d5914f28f144985d6e3d0fde1016, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxHealth: 50
 --- !u!1 &1421039703752744416
 GameObject:
   m_ObjectHideFlags: 0
