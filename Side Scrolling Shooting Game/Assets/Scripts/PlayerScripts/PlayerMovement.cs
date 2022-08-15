@@ -44,7 +44,7 @@ public class PlayerMovement : MonoBehaviour
     private Plane _plane;
     private Vector3 _mouseWorldPos;
 
-    private HumanAimHandler _aimHandler;
+    private GenericAimHandler _aimHandler;
 
     public Vector3 MouseWorldPos { get => _mouseWorldPos; }
     void Awake() {
@@ -52,7 +52,7 @@ public class PlayerMovement : MonoBehaviour
          _controller.detectCollisions = false;
          
          _playerInput = GetComponent<PlayerInput>();
-         _aimHandler = GetComponent<HumanAimHandler>();
+         _aimHandler = GetComponent<GenericAimHandler>();
 
          _plane = new Plane(Vector3.forward,transform.position);
          _currentRotation = 0f;

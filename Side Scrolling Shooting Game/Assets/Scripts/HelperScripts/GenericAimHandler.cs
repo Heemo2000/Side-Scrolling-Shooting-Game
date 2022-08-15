@@ -1,24 +1,20 @@
 using UnityEngine;
 using UnityEngine.Animations.Rigging;
 
-public class HumanAimHandler : MonoBehaviour
+public class GenericAimHandler : MonoBehaviour
 {
 
     [Range(1f,100.0f)]
     [SerializeField]private float aimingSpeed = 50f;
     [SerializeField]private Transform aimPointerPrefab;
     [SerializeField]private RigBuilder rigBuilder;
-    [SerializeField]private MultiAimConstraint headIK;
-    [SerializeField]private MultiAimConstraint spineIK;
 
-    [SerializeField]private MultiAimConstraint rightHandIK;
-    private PlayerMovement _movement;
-
+    [SerializeField]private MultiAimConstraint[] aimIKs;
+    
     private GameObject _aimPointerPrimitive;
     private Vector3 _targetAimPosition;
     private void Awake() 
     {
-        _movement = GetComponent<PlayerMovement>();
 
         if(aimPointerPrefab == null)
         {
@@ -32,17 +28,12 @@ public class HumanAimHandler : MonoBehaviour
         _aimPointerPrimitive.transform.position = transform.position;
         _aimPointerPrimitive.transform.rotation = Quaternion.identity;
 
-        var headIKSourceObjects = headIK.data.sourceObjects;
-        var spineIKSourceObjects = spineIK.data.sourceObjects;
-        var rightHandIKSourceObjects = rightHandIK.data.sourceObjects;
-
-        headIKSourceObjects.SetTransform(0,_aimPointerPrimitive.transform);
-        spineIKSourceObjects.SetTransform(0,_aimPointerPrimitive.transform);
-        rightHandIKSourceObjects.SetTransform(0,_aimPointerPrimitive.transform);
-
-        headIK.data.sourceObjects = headIKSourceObjects;
-        spineIK.data.sourceObjects = spineIKSourceObjects;
-        rightHandIK.data.sourceObjects = rightHandIKSourceObjects;
+        foreach(MultiAimConstraint constraint in aimIKs)
+        {
+            var sourceObjects = constraint.data.sourceObjects;
+            sourceObjects.SetTransform(0,_aimPointerPrimitive.transform);
+            constraint.data.sourceObjects = sourceObjects;
+        }
 
         rigBuilder.Build();
     }

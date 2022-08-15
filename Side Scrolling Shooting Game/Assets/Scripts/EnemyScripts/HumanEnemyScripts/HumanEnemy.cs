@@ -38,7 +38,7 @@ public class HumanEnemy : BaseEnemy
     public float MoveSpeed { get => moveSpeed; set => moveSpeed = value; }
 
     private NavMeshAgent _agent;
-    private HumanAimHandler _aimHandler;
+    private GenericAimHandler _aimHandler;
 
     private StateMachine _enemyStateMachine;
 
@@ -52,7 +52,7 @@ public class HumanEnemy : BaseEnemy
     private void Awake() 
     {
         _agent = GetComponent<NavMeshAgent>();
-        _aimHandler = GetComponent<HumanAimHandler>();
+        _aimHandler = GetComponent<GenericAimHandler>();
         _enemyStateMachine = new StateMachine();
         
         _chaseState = new HumanEnemyChaseState(this);

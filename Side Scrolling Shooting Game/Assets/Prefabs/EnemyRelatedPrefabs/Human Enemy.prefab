@@ -237,12 +237,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e5b0ca544db7d814895b7411bcc3373a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  aimingSpeed: 20
+  aimingSpeed: 50
   aimPointerPrefab: {fileID: 0}
   rigBuilder: {fileID: 5234428917766737178}
-  headIK: {fileID: 1814312143001808089}
-  spineIK: {fileID: 3677883491308137126}
-  rightHandIK: {fileID: 1163898343691870410}
+  aimIKs:
+  - {fileID: 1814312143001808089}
+  - {fileID: 1163898343691870410}
+  - {fileID: 3677883491308137126}
 --- !u!114 &694597452
 MonoBehaviour:
   m_ObjectHideFlags: 0
