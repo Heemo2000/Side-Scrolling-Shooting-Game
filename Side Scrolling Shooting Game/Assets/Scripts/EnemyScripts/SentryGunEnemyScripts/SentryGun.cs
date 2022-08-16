@@ -13,7 +13,7 @@ public class SentryGun : BaseEnemy
     [SerializeField]private Gun gun;
     private GenericAimHandler _aimHandler;
 
-
+    
 
     private void Awake() {
         _aimHandler = GetComponent<GenericAimHandler>();
@@ -35,7 +35,6 @@ public class SentryGun : BaseEnemy
         
         if(Physics.Raycast(firePoint.position,firePoint.right,out RaycastHit hit,targetCheckDistance,~rayCastIgnoreLayerMask.value))
         {
-            Debug.Log("Hit object : " + hit.transform.name);
             Debug.DrawLine(firePoint.position,hit.point);
             if(hit.transform.gameObject.layer == Target.gameObject.layer)
             {

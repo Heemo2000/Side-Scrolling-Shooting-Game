@@ -45,6 +45,7 @@ GameObject:
   - component: {fileID: 8416324349214212853}
   - component: {fileID: 8416324349214212858}
   - component: {fileID: 8416324349214212859}
+  - component: {fileID: 1628050854575075931}
   m_Layer: 8
   m_Name: Exploding Enemy
   m_TagString: Untagged
@@ -94,16 +95,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   target: {fileID: 0}
-  patrolSpeed: 4.7
-  chaseSpeed: 8.4
+  chaseSpeed: 25
   chaseDistance: 16
   explodeDistance: 4
-  destCheckDistance: 2
-  patrolInterval: 1
   explodeTime: 3
-  patrolDestinations:
-  - {fileID: 0}
-  - {fileID: 0}
   animator: {fileID: 8416324347739206991}
   explosionEffect: {fileID: 4941061384096392757, guid: e107d4504c02931448876f875da13555,
     type: 3}
@@ -175,6 +170,19 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &1628050854575075931
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8416324349214212852}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6b24d5914f28f144985d6e3d0fde1016, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxHealth: 10
 --- !u!1001 &8416324347746549807
 PrefabInstance:
   m_ObjectHideFlags: 0
