@@ -41,9 +41,8 @@ public class Bullet : MonoBehaviour
 
     private void OnTriggerEnter(Collider other) 
     {
-        int bulletMaskValue = 1 << gameObject.layer;
         int colliderMaskValue = 1 << other.gameObject.layer;
-        if((bulletMaskValue & ignoreMask.value & colliderMaskValue) != 0)
+        if((ignoreMask.value & colliderMaskValue) != 0)
         {
             Physics.IgnoreCollision(_bulletCollider,other);
             return;

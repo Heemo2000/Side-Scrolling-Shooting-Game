@@ -92,11 +92,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 23e9499792ec20e4e9dbcc4ba23122b1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 2
+  moveSpeed: 5
   destroyTime: 2
   ignoreMask:
     serializedVersion: 2
-    m_Bits: 256
+    m_Bits: 768
+  damage: 10
 --- !u!54 &-375597315579280210
 Rigidbody:
   m_ObjectHideFlags: 0

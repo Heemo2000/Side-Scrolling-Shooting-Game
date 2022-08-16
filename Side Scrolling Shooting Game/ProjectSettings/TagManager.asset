@@ -14,8 +14,8 @@ TagManager:
   - Ground
   - Powerup
   - Enemy
-  - OffMeshLink
-  - 
+  - EnemySpawner
+  - Bullet
   - 
   - 
   - 

@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2289154867205322692}
-  m_Layer: 3
+  m_Layer: 10
   m_Name: Player Bullet Graphic
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -43,7 +43,7 @@ GameObject:
   - component: {fileID: 6079242498596526371}
   - component: {fileID: 5210626472107677057}
   - component: {fileID: 7901779707847416464}
-  m_Layer: 3
+  m_Layer: 10
   m_Name: Cube
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -127,7 +127,7 @@ GameObject:
   - component: {fileID: 2114987541414163926}
   - component: {fileID: 4269561001705584445}
   - component: {fileID: -375597315579280210}
-  m_Layer: 3
+  m_Layer: 10
   m_Name: Player Bullet
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -175,11 +175,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 23e9499792ec20e4e9dbcc4ba23122b1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 2
+  moveSpeed: 5
   destroyTime: 2
   ignoreMask:
     serializedVersion: 2
-    m_Bits: 8
+    m_Bits: 520
+  damage: 5
 --- !u!54 &-375597315579280210
 Rigidbody:
   m_ObjectHideFlags: 0
