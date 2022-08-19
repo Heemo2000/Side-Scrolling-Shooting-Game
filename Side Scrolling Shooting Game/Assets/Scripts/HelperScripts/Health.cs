@@ -24,7 +24,6 @@ public class Health : MonoBehaviour
         OnCurrentHealthSet += SetHealth;
         OnHealthDamaged += TakeDamage;
         OnHealthHealed += RepairHealth;
-        OnDeath += Die;
     }
 
     private void SetHealth(float amount,float maxAmount)
@@ -46,15 +45,9 @@ public class Health : MonoBehaviour
         OnCurrentHealthSet?.Invoke(_currentAmount + amount,maxHealth);
     }
 
-    private void Die()
-    {
-        Destroy(gameObject);
-    }
-
     private void OnDestroy() 
     {
         OnCurrentHealthSet -= SetHealth;
         OnHealthDamaged -= TakeDamage;
-        OnDeath -= Die;
     }
 }
