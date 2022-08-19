@@ -7,11 +7,11 @@ public class BulletPowerup : MonoBehaviour
     private void OnCollisionEnter(Collision other) 
     {
         Debug.Log("Detected :" + other.gameObject.name);
-         PlayerCollisionDetection playerCollision = other.gameObject.GetComponent<PlayerCollisionDetection>();
+         Player player = other.gameObject.GetComponent<Player>();
 
-         if(playerCollision != null)
+         if(player != null)
          {
-            playerCollision.GetPlayerReference().WeaponManager.ChangeBullet(bulletPrefab);
+            player.WeaponManager.ChangeBullet(bulletPrefab);
             Destroy(gameObject);
          }
     }
