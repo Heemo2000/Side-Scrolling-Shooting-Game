@@ -48,6 +48,7 @@ public class PlayerMovement : MonoBehaviour
 
     private GenericAimHandler _aimHandler;
 
+    private float _lockedZPosition = 0f;
     public Vector3 MouseWorldPos { get => _mouseWorldPos; }
     void Awake() {
          _controller = GetComponent<CharacterController>();
@@ -59,6 +60,10 @@ public class PlayerMovement : MonoBehaviour
          _plane = new Plane(Vector3.forward,transform.position);
          _currentRotation = 0f;
          _velocityY = 0f;
+    }
+    private void Start() 
+    {
+        _lockedZPosition = transform.position.z;    
     }
 
     private void Update() 
@@ -155,12 +160,13 @@ public class PlayerMovement : MonoBehaviour
         animMoveInput *= Mathf.Abs(_smoothedXInput);
         
         playerAnimator.SetFloat("MoveInput",animMoveInput);
+
         HandleRotation();
-        
         
         _controller.Move(Vector3.right * _smoothedXInput * moveSpeed * Time.fixedDeltaTime);
         _controller.Move(Vector3.up * _velocityY * Time.fixedDeltaTime);
-
+        LockPositionInZ();
+        
         HandleGravity();
     }
 
@@ -194,6 +200,12 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
+    private void LockPositionInZ()
+    {
+        Vector3 lockedPosition = transform.position;
+        lockedPosition.z = _lockedZPosition;
+        transform.position = lockedPosition;
+    }
     private bool AlmostOnGround()
     {
         return Physics.CheckSphere(groundCheck.position,maxGroundCheckDist,~groundCheckIgnore.value);     
