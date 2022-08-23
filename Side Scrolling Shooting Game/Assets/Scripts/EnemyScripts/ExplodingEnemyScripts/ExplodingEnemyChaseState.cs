@@ -15,7 +15,7 @@ public class ExplodingEnemyChaseState : IState
     {
         _explodingEnemy.Agent.isStopped = false;
         _explodingEnemy.Agent.speed = _explodingEnemy.ChaseSpeed;
-        _explodingEnemy.Animator.SetBool("IsWalking",true);
+        //_explodingEnemy.Animator.SetBool("IsWalking",true);
     }
 
     public void OnExit()

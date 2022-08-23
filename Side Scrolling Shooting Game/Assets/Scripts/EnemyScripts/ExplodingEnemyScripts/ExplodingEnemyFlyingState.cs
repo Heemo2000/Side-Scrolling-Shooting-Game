@@ -11,7 +11,7 @@ public class ExplodingEnemyFlyingState : IState
     }
     public void OnEnter()
     {
-        Debug.Log("Now in flying state.");
+        //Debug.Log("Now in flying state.");
         _explodingEnemy.StartCoroutine(Fly());
 
     }
@@ -29,28 +29,30 @@ public class ExplodingEnemyFlyingState : IState
 
     private IEnumerator Fly()
     {
+        _explodingEnemy.IsFlying = true;
         Vector3 destination = _explodingEnemy.Target.position;
-        Vector3 displacement = destination - _explodingEnemy.transform.position;
+        Vector3 source = _explodingEnemy.transform.position;
+        
+        //Debug.Log("Source : " + source);
+        int direction = (destination.x - source.x) >= 0 ? 1 : -1;
 
-        float launchAngle = 15f;//Mathf.Atan(displacement.y/displacement.x);
-        float horizontalVelocity = _explodingEnemy.FlySpeed * Mathf.Cos(launchAngle * Mathf.Deg2Rad);
-        float verticalVelocity = _explodingEnemy.FlySpeed * Mathf.Sin(launchAngle * Mathf.Deg2Rad);        
+        destination.x -= direction * _explodingEnemy.FlyingDestinationOffSet; 
         float currentTime = 0f;
         _explodingEnemy.Agent.enabled = false;
         
-        Vector3 currentPosition = _explodingEnemy.transform.position;
+        Vector3 currentPosition = source;
 
-        while(currentTime < _explodingEnemy.FlyTime)
+        while(currentTime < 1.0f)
         {
-            currentPosition.x += horizontalVelocity * currentTime;
-            currentPosition.y -= Physics.gravity.y * verticalVelocity * currentTime;    
-            currentTime += Time.deltaTime;
+            float offsetY = _explodingEnemy.FlyingCurve.Evaluate(currentTime);
+            currentPosition = Vector3.Lerp(source,destination,currentTime) + Vector3.up * offsetY;
             _explodingEnemy.transform.position = currentPosition;
-
+            currentTime += (_explodingEnemy.FlySpeed * Time.deltaTime)/_explodingEnemy.FlyTime;
             yield return null;
         }
         _explodingEnemy.transform.position = destination;
         _explodingEnemy.Agent.enabled = true;
         yield return null;
+        _explodingEnemy.IsFlying = false;
     }
 }
