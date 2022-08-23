@@ -207,7 +207,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   target: {fileID: 0}
   eye: {fileID: 192975601}
-  frontSideCheckDistance: 2
+  frontSideCheckDistance: 3
   shootingCheckDistance: 21.8
   groundCheckDistance: 5
   collisionIgnoreLayerMask:
