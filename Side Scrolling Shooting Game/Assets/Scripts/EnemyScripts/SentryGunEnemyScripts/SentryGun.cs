@@ -15,7 +15,8 @@ public class SentryGun : BaseEnemy
 
     
 
-    private void Awake() {
+    protected override void Awake() {
+        base.Awake();
         _aimHandler = GetComponent<GenericAimHandler>();
     }
 
@@ -32,7 +33,10 @@ public class SentryGun : BaseEnemy
     }
     private void HandleShooting()
     {
-        
+        if(Target == null)
+        {
+            return;
+        }   
         if(Physics.Raycast(firePoint.position,firePoint.right,out RaycastHit hit,targetCheckDistance,~rayCastIgnoreLayerMask.value))
         {
             Debug.DrawLine(firePoint.position,hit.point);
