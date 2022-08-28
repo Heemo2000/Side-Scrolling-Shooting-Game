@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEditor;
 public class ExplodingEnemyExplodeState : IState
 {
     private ExplodingEnemy _explodingEnemy;
@@ -14,11 +14,14 @@ public class ExplodingEnemyExplodeState : IState
 
     public void OnEnter()
     {   
-        //_explodingEnemy.Animator.SetBool("IsWalking",false);
-        //_explodingEnemy.Animator.SetTrigger("Death");
+        _explodingEnemy.Animator.SetBool(StringHolder.IsRollingAnimParameter,false);
+        _explodingEnemy.Animator.SetFloat(StringHolder.MoveInputAnimParam,0.0f);
+        
         _explodingEnemy.Agent.enabled = false;
         _remainingTime = _explodingEnemy.ExplodeTime;
         _explodingEnemy.ExplodeTimerUI.gameObject.SetActive(true);
+        _explodingEnemy.ExplodeRangeVisual.SetActive(true);
+        _explodingEnemy.ExplodeRangeVisual.transform.localScale = Vector3.one * _explodingEnemy.ExplodeDistance;
     }
 
     public void OnExit()
@@ -43,17 +46,19 @@ public class ExplodingEnemyExplodeState : IState
 
     private void DamageTarget()
     {
+        GameObject.Instantiate(_explodingEnemy.ExplosionEffect,_explodingEnemy.transform.position,Quaternion.identity);
         Health targetHealth = _explodingEnemy.Target.GetComponent<Health>();
         if(targetHealth == null)
         {
             return;
         }
         
-        float distanceToTarget = Vector3.Distance(_explodingEnemy.transform.position,_explodingEnemy.Target.position);
-        float explodeImpulsePercent = 1f - Mathf.Clamp01(distanceToTarget/_explodingEnemy.ExplodeDistance);
-        //Debug.Log("Explode Impulse Percent : " + explodeImpulsePercent);
-        _explodingEnemy.ExplodeImpulse.GenerateImpulseWithForce(explodeImpulsePercent);
-        targetHealth.OnHealthDamaged?.Invoke(_explodingEnemy.Damage);
+        if(Utility.CheckDistance(_explodingEnemy.transform.position,_explodingEnemy.Target.position,_explodingEnemy.ExplodeDistance))
+        {
+            _explodingEnemy.ExplodeImpulse.GenerateImpulseAtPositionWithVelocity(_explodingEnemy.transform.position,Vector3.zero);
+            targetHealth.OnHealthDamaged?.Invoke(_explodingEnemy.Damage);
+        }
+        
         
     }
 

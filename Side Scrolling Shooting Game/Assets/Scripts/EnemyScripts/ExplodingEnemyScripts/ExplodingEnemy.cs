@@ -1,9 +1,12 @@
 using UnityEngine;
 using UnityEngine.AI;
 using Cinemachine;
+
 public class ExplodingEnemy : BaseEnemy
 {
-    
+    [Range(1f,20f)]
+    [SerializeField]private float targetDistanceY = 10f;
+
     [Range(1f,50f)]
     [SerializeField]private float chaseSpeed = 2f;
 
@@ -21,15 +24,14 @@ public class ExplodingEnemy : BaseEnemy
 
     [Range(0.5f,5.0f)]
     [SerializeField]private float flyTime = 3.0f;
-    [Range(2f,50f)]
+    [Range(10f,50f)]
     [SerializeField]private float flyingCheckDistance = 10f;
     [SerializeField]private AnimationCurve flyingCurve;
     [SerializeField]private Animator animator;
     [SerializeField]private ParticleSystem explosionEffect;
     [SerializeField]private BarsUI explodeTimerUIPrefab;
-
     [SerializeField]private CinemachineImpulseSource explodeImpulse;
-
+    [SerializeField]private GameObject explodeRangeVisual;
     [SerializeField]private Transform groundCheck;
 
     [Range(0.05f,0.3f)]
@@ -37,6 +39,9 @@ public class ExplodingEnemy : BaseEnemy
 
     [Range(5f,50f)]
     [SerializeField]private float damage = 20f;
+
+    [SerializeField]private bool shouldFly = false;
+
     public float ChaseSpeed { get => chaseSpeed;}
     public float MaxPatrolDistance { get => chaseDistance;}
     public float ExplodeDistance { get => explodeDistance;}
@@ -52,6 +57,7 @@ public class ExplodingEnemy : BaseEnemy
     public BarsUI ExplodeTimerUI { get => _explodeTimerUI; }
     public CinemachineImpulseSource ExplodeImpulse { get => explodeImpulse; }
     public float Damage { get => damage; }
+    public GameObject ExplodeRangeVisual { get => explodeRangeVisual; }
 
     private StateMachine _enemyStateMachine;
 
@@ -74,9 +80,9 @@ public class ExplodingEnemy : BaseEnemy
         _flyingState = new ExplodingEnemyFlyingState(this);
         _explodeState = new ExplodingEnemyExplodeState(this);
 
-        _enemyStateMachine.AddTransition(_chaseState,_flyingState,()=> Utility.CheckDistance(transform.position,Target.position,flyingCheckDistance) && IsGrounded());
+        _enemyStateMachine.AddTransition(_chaseState,_flyingState,ChaseToFlyingStateCondition);
         _enemyStateMachine.AddTransition(_flyingState,_explodeState,()=> _isFlying == false);
-        _enemyStateMachine.AddTransition(_chaseState,_explodeState,()=> Utility.CheckDistance(transform.position,Target.position,explodeDistance));
+        _enemyStateMachine.AddTransition(_chaseState,_explodeState,ChaseToExplodeStateCondition);
     }
 
     protected override void Start() {
@@ -85,6 +91,7 @@ public class ExplodingEnemy : BaseEnemy
         _explodeTimerUI.FollowTarget = transform;
         _explodeTimerUI.gameObject.SetActive(false);
         _enemyStateMachine.SetState(_chaseState);
+        explodeRangeVisual.SetActive(false);
     }
     // Update is called once per frame
     void Update()
@@ -97,6 +104,25 @@ public class ExplodingEnemy : BaseEnemy
         _enemyStateMachine?.OnUpdate();
     }
 
+    private bool ChaseToFlyingStateCondition()
+    {
+        float yOffSet = GetFlyingDestination().y - transform.position.y;
+
+        return shouldFly && Utility.CheckDistance(transform.position,GetFlyingDestination(),flyingCheckDistance) 
+               && IsGrounded() && Mathf.Abs(yOffSet) <= targetDistanceY;
+    }
+    
+    private bool ChaseToExplodeStateCondition()
+    {
+        return Utility.CheckDistance(transform.position,Target.position,explodeDistance);
+    }
+
+    public Vector3 GetFlyingDestination()
+    {
+        float direction = Mathf.Sign(Target.position.x - transform.position.x);
+        return Target.position - Vector3.right * direction * flyingDestinationOffSet;
+    }
+
     private bool IsGrounded()
     {
         return Physics.Raycast(groundCheck.position,Vector3.down,groundCheckDistance,~(1 << gameObject.layer));
@@ -105,5 +131,16 @@ public class ExplodingEnemy : BaseEnemy
     private void OnDestroy() 
     {
         Destroy(_explodeTimerUI.gameObject);    
+    }
+
+    private void OnDrawGizmos() 
+    {
+        if(Target == null)
+        {
+            return;
+        }
+        float direction = Mathf.Sign(Target.position.x - transform.position.x);
+        Gizmos.color = Color.green;
+        Gizmos.DrawLine(transform.position,transform.position + Vector3.right * direction * explodeDistance);    
     }
 }

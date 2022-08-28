@@ -12,6 +12,8 @@ public class ExplodingEnemyFlyingState : IState
     public void OnEnter()
     {
         //Debug.Log("Now in flying state.");
+
+        _explodingEnemy.Animator.SetBool(StringHolder.IsRollingAnimParameter,true);
         _explodingEnemy.StartCoroutine(Fly());
 
     }
@@ -30,13 +32,9 @@ public class ExplodingEnemyFlyingState : IState
     private IEnumerator Fly()
     {
         _explodingEnemy.IsFlying = true;
-        Vector3 destination = _explodingEnemy.Target.position;
         Vector3 source = _explodingEnemy.transform.position;
+        Vector3 destination = _explodingEnemy.GetFlyingDestination();
         
-        //Debug.Log("Source : " + source);
-        int direction = (destination.x - source.x) >= 0 ? 1 : -1;
-
-        destination.x -= direction * _explodingEnemy.FlyingDestinationOffSet; 
         float currentTime = 0f;
         _explodingEnemy.Agent.enabled = false;
         
