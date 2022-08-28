@@ -6,17 +6,12 @@ public class StateMachine
 
   private Dictionary<Type,List<Transition>> _transitions;
   private List<Transition> _currentTransitions;
-  private List<Transition> _anyTransitions;
-
-  private List<Transition> s_emptyTransitions;
   private IState _currentState;
 
   public StateMachine()
   {
     _transitions = new Dictionary<Type, List<Transition>>();
     _currentTransitions = new List<Transition>();
-    _anyTransitions = new List<Transition>();
-    s_emptyTransitions = new List<Transition>();
   }
 
 
@@ -31,11 +26,6 @@ public class StateMachine
      _currentState = state;
 
      _transitions.TryGetValue(_currentState.GetType(), out _currentTransitions);
-     if(_currentTransitions == null)
-     {
-        _currentTransitions = s_emptyTransitions;
-     }
-
      _currentState?.OnEnter();
   }
 
@@ -48,20 +38,10 @@ public class StateMachine
     }
     
     transitions.Add(new Transition(to,checkCallback));
-  }
-
-  
-
-  public void AddAnyTransition(IState from,IState to,Func<bool> checkCallback)
-  {
-    _anyTransitions.Add(new Transition(to,checkCallback));
-  }
-
-  
+  }  
 
   public void OnUpdate()
   {
-      //Debug.Log("Current state : " + _currentState.ToString());
       Transition transition = GetTransition();
       if(transition != null)
       {
@@ -70,30 +50,32 @@ public class StateMachine
       _currentState?.OnUpdate();
   }
 
+   public string GetCurrentStateName()
+   {
+      if(_currentState == null)
+      {
+         return "No state";
+      }
+
+      return _currentState.ToString();
+   }
   private class Transition
    {
       public Func<bool> Condition;
       public IState ToState;
-
-      
       public Transition(IState toState, Func<bool> condition)
       {
          ToState = toState;
          Condition = condition;
       }
-
    }
 
    private Transition GetTransition()
    {
-     foreach(Transition transition in _anyTransitions)
+     if(_currentTransitions == null)
      {
-        if(transition.Condition())
-        {
-            return transition;
-        }
+         return null;
      }
-
      foreach(Transition transition in _currentTransitions)
      {
         if(transition.Condition())
