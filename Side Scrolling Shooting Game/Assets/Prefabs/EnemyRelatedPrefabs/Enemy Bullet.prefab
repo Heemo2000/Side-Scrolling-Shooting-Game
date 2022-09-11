@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2289154867205322692}
-  m_Layer: 8
+  m_Layer: 10
   m_Name: Enemy Bullet Graphic
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -44,7 +44,7 @@ GameObject:
   - component: {fileID: 2114987541414163926}
   - component: {fileID: 4269561001705584445}
   - component: {fileID: -375597315579280210}
-  m_Layer: 8
+  m_Layer: 10
   m_Name: Enemy Bullet
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -112,7 +112,7 @@ Rigidbody:
   m_UseGravity: 0
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 8
+  m_Constraints: 0
   m_CollisionDetection: 1
 --- !u!1 &9183775374814155511
 GameObject:
@@ -125,7 +125,7 @@ GameObject:
   - component: {fileID: 4636434736221282116}
   - component: {fileID: 94192807670335912}
   - component: {fileID: 8563609249505363677}
-  m_Layer: 8
+  m_Layer: 10
   m_Name: Sphere
   m_TagString: Untagged
   m_Icon: {fileID: 0}

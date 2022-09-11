@@ -36,7 +36,7 @@ public class Bullet : MonoBehaviour
     }
     private void FixedUpdate() 
     {
-        _bulletRB.AddForce(transform.right * moveSpeed,ForceMode.Impulse);
+        _bulletRB.AddForce(transform.forward * moveSpeed,ForceMode.Impulse);
     }
 
     private void OnTriggerEnter(Collider other) 
