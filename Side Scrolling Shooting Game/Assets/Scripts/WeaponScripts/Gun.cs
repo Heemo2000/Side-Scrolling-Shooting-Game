@@ -11,15 +11,15 @@ public class Gun : MonoBehaviour
     [SerializeField]private Bullet bulletPrefab;
 
     private float _nextTimeToFire = 0.0f;
-
     public Action OnBulletShoot;
+
+
     public void Fire()
     {
         if(_nextTimeToFire < Time.time)
         {
-            OnBulletShoot?.Invoke();
-            Bullet bullet = Instantiate(bulletPrefab,firePoint.position,Quaternion.LookRotation(firePoint.right,Vector3.up));
-            bullet.transform.right = firePoint.right;
+            OnBulletShoot?.Invoke(); 
+            Bullet bullet = Instantiate(bulletPrefab,firePoint.position,Quaternion.LookRotation(firePoint.forward,firePoint.right));
             _nextTimeToFire = Time.time + fireInterval;
         }
     }
