@@ -5,6 +5,7 @@ using UnityEngine.InputSystem;
 
 public class PlayerMovement : MonoBehaviour
 {
+    private const float AimCheckForwardOffSet = 2.5f;
     [Min(1f)]
     [SerializeField]private float xInputSpeed = 5f;
     [Min(0f)]
@@ -27,10 +28,14 @@ public class PlayerMovement : MonoBehaviour
 
     [SerializeField]private LayerMask groundCheckIgnore;
 
+    [SerializeField]private LayerMask aimMask;
+
     [Min(0f)]
     [SerializeField]private float fallMultiplier = 1.5f;
     [SerializeField]private Animator playerAnimator;
-    
+
+    [SerializeField]private float aimCheckRadius = 2f;
+    [SerializeField]private float aimCheckMaxDistance = 10f;
 
     private CharacterController _controller;
     private float _gravity;
@@ -47,7 +52,6 @@ public class PlayerMovement : MonoBehaviour
     private Vector3 _mouseWorldPos;
 
     private GenericAimHandler _aimHandler;
-
     private float _lockedZPosition = 0f;
     public Vector3 MouseWorldPos { get => _mouseWorldPos; }
     void Awake() {
@@ -63,7 +67,7 @@ public class PlayerMovement : MonoBehaviour
     }
     private void Start() 
     {
-        _lockedZPosition = transform.position.z;    
+        _lockedZPosition = transform.position.z;
     }
 
     private void Update() 
@@ -108,7 +112,15 @@ public class PlayerMovement : MonoBehaviour
 
         if(_plane.Raycast(ray,out float distance))
         {
-            _mouseWorldPos = ray.origin + ray.direction * distance;
+            _mouseWorldPos = ray.origin + ray.direction * distance;            
+            if(Physics.SphereCast(_mouseWorldPos - Vector3.forward * AimCheckForwardOffSet,aimCheckRadius,Vector3.forward,out RaycastHit hit,aimCheckMaxDistance,aimMask.value))
+            {
+                Debug.Log("Setting aim position to gameobject's transform.");
+                _mouseWorldPos = hit.transform.position;
+            }
+            
+            _aimHandler.SetAimPosition(_mouseWorldPos);
+
         }
     }
 
@@ -118,7 +130,6 @@ public class PlayerMovement : MonoBehaviour
         if(IsGrounded())
         {
             playerAnimator.SetTrigger(StringHolder.JumpTriggerAnimParameter);
-            Debug.Log("Jump Trigger called on Player");
             _velocityY += _initialJumpVelocity;
         }
     }
@@ -166,7 +177,7 @@ public class PlayerMovement : MonoBehaviour
         _controller.Move(Vector3.right * _smoothedXInput * moveSpeed * Time.fixedDeltaTime);
         _controller.Move(Vector3.up * _velocityY * Time.fixedDeltaTime);
         LockPositionInZ();
-        
+
         HandleGravity();
     }
 
@@ -219,12 +230,14 @@ public class PlayerMovement : MonoBehaviour
     {
         if(groundCheck != null)
         {
-            /*
+            
             Gizmos.color = Color.red;
             Gizmos.DrawLine(groundCheck.position,groundCheck.position + Vector3.down * groundCheckDist);
-            */
+            
+            /*
             Gizmos.color = Color.yellow;
             Gizmos.DrawLine(groundCheck.position,groundCheck.position + Vector3.down * maxGroundCheckDist);
+            */
         }
     }
 }
