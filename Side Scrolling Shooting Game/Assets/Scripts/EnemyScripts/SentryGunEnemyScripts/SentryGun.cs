@@ -11,6 +11,8 @@ public class SentryGun : BaseEnemy
 
     [SerializeField]private LayerMask rayCastIgnoreLayerMask;
     [SerializeField]private Gun gun;
+
+    [SerializeField]private bool checkTarget;
     private GenericAimHandler _aimHandler;
 
     
@@ -36,10 +38,11 @@ public class SentryGun : BaseEnemy
         if(Target == null)
         {
             return;
-        }   
-        if(Physics.Raycast(firePoint.position,firePoint.right,out RaycastHit hit,targetCheckDistance,~rayCastIgnoreLayerMask.value))
+        }
+        Ray ray = new Ray(firePoint.position,firePoint.forward);   
+        if(checkTarget && Physics.Raycast(ray,out RaycastHit hit,targetCheckDistance,~rayCastIgnoreLayerMask.value))
         {
-            Debug.DrawLine(firePoint.position,hit.point);
+            Debug.DrawRay(ray.origin,ray.direction,Color.white);
             if(hit.transform.gameObject.layer == Target.gameObject.layer)
             {
                 gun.Fire();

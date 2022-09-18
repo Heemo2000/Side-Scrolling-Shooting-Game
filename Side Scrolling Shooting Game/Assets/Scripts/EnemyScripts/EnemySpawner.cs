@@ -8,8 +8,8 @@ public class EnemySpawner : MonoBehaviour
     [SerializeField]private Transform spawnPoint;
     [SerializeField]private Player player;
     [SerializeField]private BaseEnemy enemyPrefab;
-    [Range(0,5)]
-    [SerializeField]private int enemyCount = 2;
+    [Min(0)]
+    [SerializeField]private int enemyCount = 8;
 
     [Range(0.5f,2.0f)]
     [SerializeField]private float spawnInterval = 1.0f;

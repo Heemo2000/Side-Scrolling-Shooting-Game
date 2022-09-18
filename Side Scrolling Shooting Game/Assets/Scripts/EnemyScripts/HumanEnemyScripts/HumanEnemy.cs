@@ -35,7 +35,6 @@ public class HumanEnemy : BaseEnemy
     public ParticleSystem ExplosionEffect { get => explosionEffect;}
     public NavMeshAgent Agent { get => _agent;}
     public float MoveSpeed { get => moveSpeed; set => moveSpeed = value; }
-    public Health Health { get => _health; }
 
     private NavMeshAgent _agent;
     private GenericAimHandler _aimHandler;
@@ -49,20 +48,18 @@ public class HumanEnemy : BaseEnemy
     private float _currentMoveAnimSpeed = 0;
 
     private bool _shouldStop = false;
-    private void Awake() 
+    protected override void Awake() 
     {
+        base.Awake();
         _agent = GetComponent<NavMeshAgent>();
-        _health = GetComponent<Health>();
         _aimHandler = GetComponent<GenericAimHandler>();
         _enemyStateMachine = new StateMachine();
         
         _chaseState = new HumanEnemyChaseState(this);
         _stopState = new HumanEnemyStopState(this);
 
-        _enemyStateMachine.AddTransition(_chaseState,_stopState,() => Utility.CheckDistance(transform.position,Target.position,stopDistance) 
-                                         || (_shouldStop == true));
-        _enemyStateMachine.AddTransition(_stopState,_chaseState,()=> !Utility.CheckDistance(transform.position,Target.position,stopDistance)
-                                         || (_shouldStop == false));
+        _enemyStateMachine.AddTransition(_chaseState,_stopState,() => Utility.CheckDistance(transform.position,Target.position,stopDistance) || _shouldStop);
+        _enemyStateMachine.AddTransition(_stopState,_chaseState,()=> !Utility.CheckDistance(transform.position,Target.position,stopDistance) || !_shouldStop);
     
         _enemyStateMachine?.SetState(_chaseState);
     }
@@ -89,7 +86,7 @@ public class HumanEnemy : BaseEnemy
     {
         Vector3 targetLookPosition = Target.position + Vector3.up * lookOffSetY;
         Vector3 direction = (targetLookPosition - eye.position).normalized;
-        int shootCheckMaskValue = ~(1 << Target.gameObject.layer);
+        int shootCheckMaskValue = ~(1 << Target.gameObject.layer | collisionIgnoreLayerMask.value);
         if(!Physics.Raycast(eye.position,direction,shootingCheckDistance,shootCheckMaskValue))
         {
             gun?.Fire();
@@ -98,10 +95,19 @@ public class HumanEnemy : BaseEnemy
 
     private void HandleFrontSide()
     {
-        RaycastHit hit;
+        int requiredMaskValue = ~(collisionIgnoreLayerMask.value);
 
-        int requiredMaskValue = ~(1 << gameObject.layer | collisionIgnoreLayerMask.value);
-        _shouldStop = Physics.Raycast(transform.position,transform.forward,out hit,frontSideCheckDistance,
-                      requiredMaskValue);
+        Ray ray = new Ray(transform.position,transform.forward);      
+        _shouldStop = Physics.SphereCast(ray,0.1f,frontSideCheckDistance,requiredMaskValue);
+        if(_shouldStop)
+        {
+            Debug.Log("Now, stop.");
+        }
+    }
+
+    private void OnDrawGizmos() 
+    {
+        Gizmos.color = Color.red;
+        Gizmos.DrawLine(transform.position,transform.position + transform.forward * frontSideCheckDistance);    
     }
 }
