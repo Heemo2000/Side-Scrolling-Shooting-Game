@@ -11,19 +11,5 @@ public class GameOverUI : MonoBehaviour
     private void ShowScoreAfterGameOver()
     {
         gameOverScoreText.text = ScoreManager.Instance.CurrentScore.ToString();
-    }
-
-    public void RestartGame()
-    {
-        SceneManager.LoadScene(StringHolder.GameplaySceneName);
-    }
-    public void BackToMain()
-    {
-        SceneManager.LoadScene(StringHolder.MainMenuSceneName);
-    }
-
-    public void Exit()
-    {
-        Application.Quit();
     }    
 }

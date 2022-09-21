@@ -6,9 +6,4 @@ public class MainMenuScreenUI : MonoBehaviour
     {
         SceneManager.LoadScene(StringHolder.GameplaySceneName);   
     }
-
-    public void Exit()
-    {
-        Application.Quit();
-    }
 }
