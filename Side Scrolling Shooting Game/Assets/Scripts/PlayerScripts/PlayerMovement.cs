@@ -72,21 +72,34 @@ public class PlayerMovement : MonoBehaviour
 
     private void Update() 
     {
+        if(PauseController.Instance.IsGamePaused)
+        {
+            return;
+        }
         _aimHandler.SetAimPosition(_mouseWorldPos);    
     }
 
     private void FixedUpdate() 
     {
+        
         HandleMovement(); 
     }
 
     public void OnXInput(InputAction.CallbackContext context)
     {
+        if(PauseController.Instance.IsGamePaused)
+        {
+            return;
+        }
         _xInput = context.ReadValue<Vector2>().x;   
     }
 
     public void OnJumpInput(InputAction.CallbackContext context)
     {
+        if(PauseController.Instance.IsGamePaused)
+        {
+            return;
+        }
         if(context.performed)
         {
             Jump();
@@ -96,6 +109,10 @@ public class PlayerMovement : MonoBehaviour
 
     public void OnMousePositionInput(InputAction.CallbackContext context)
     {
+        if(PauseController.Instance.IsGamePaused)
+        {
+            return;
+        }
         _plane.SetNormalAndPosition(Vector3.forward,transform.position);
         Vector3 mouseOnScreenPos = context.ReadValue<Vector2>();
 
@@ -126,7 +143,6 @@ public class PlayerMovement : MonoBehaviour
 
     private void Jump()
     {
-        
         if(IsGrounded())
         {
             playerAnimator.SetTrigger(StringHolder.JumpTriggerAnimParameter);
@@ -183,6 +199,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void HandleGravity()
     {
+        
         bool isFalling = _velocityY < 0.0f;
 
         if(!IsGrounded())
