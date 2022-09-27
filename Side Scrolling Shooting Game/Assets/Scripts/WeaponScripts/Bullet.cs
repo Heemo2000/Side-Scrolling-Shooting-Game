@@ -11,15 +11,13 @@ public abstract class Bullet : MonoBehaviour
 
     private CommonBulletData _bulletData;
 
-    private Vector3 _destination;
-
-    private Vector3 _firedDirection;
     public CommonBulletData BulletData
     {
         get => _bulletData;
         set => _bulletData = value;
     }
     protected Rigidbody BulletRB { get => bulletRB; }
+    protected Collider BulletCollider { get => _bulletCollider; }
 
     protected virtual void Awake() 
     {

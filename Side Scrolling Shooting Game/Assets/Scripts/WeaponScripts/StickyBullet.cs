@@ -37,6 +37,12 @@ public class StickyBullet : NormalBullet
     }
     protected override void OnTriggerEnter(Collider other) 
     {
+        int colliderMaskValue = 1 << other.gameObject.layer;
+        if((base.BulletData.ignoreMask.value & colliderMaskValue) != 0)
+        {
+            Physics.IgnoreCollision(base.BulletCollider,other);
+            return;
+        }
         if(_stickAndExplodeCoroutine == null)
         {
           _stickAndExplodeCoroutine = StartCoroutine(StickAndExplode(other));  
