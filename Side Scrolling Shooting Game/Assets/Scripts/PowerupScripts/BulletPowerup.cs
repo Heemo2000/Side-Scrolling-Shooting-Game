@@ -2,7 +2,7 @@ using UnityEngine;
 using Cinemachine;
 public class BulletPowerup : Powerup
 {
-    [SerializeField]private Bullet bulletPrefab;
+    [SerializeField]private CommonBulletData bulletData;
 
     private void OnCollisionEnter(Collision other) 
     {
@@ -10,7 +10,7 @@ public class BulletPowerup : Powerup
 
          if(player != null)
          {
-            player.WeaponManager.ChangeBullet(bulletPrefab);
+            player.WeaponManager.ChangeBulletData(bulletData);
             Destroy(gameObject);
          }
     }

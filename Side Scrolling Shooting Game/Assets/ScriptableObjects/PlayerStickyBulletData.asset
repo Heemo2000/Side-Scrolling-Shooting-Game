@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e6f8eeb1bbb84274da2925d3e79ab458, type: 3}
+  m_Name: PlayerStickyBulletData
+  m_EditorClassIdentifier: 
+  ignoreMask:
+    serializedVersion: 2
+    m_Bits: 1032
+  damage: 10
+  moveSpeed: 1
+  destroyTime: 10
+  tripleFire: 0
+  bulletPrefab: {fileID: 6146982716207028794, guid: 2d6b584b523b31d4db963f9665820cf9,
+    type: 3}

@@ -172,15 +172,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 8579384319000901417}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 23e9499792ec20e4e9dbcc4ba23122b1, type: 3}
+  m_Script: {fileID: 11500000, guid: 69ffe4024cd51994c8feb7e51d64da22, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 5
-  destroyTime: 2
-  ignoreMask:
-    serializedVersion: 2
-    m_Bits: 520
-  damage: 5
+  bulletData: {fileID: 11400000, guid: a2e0b3a6b5f1d544cb1862a792847d30, type: 2}
 --- !u!54 &-375597315579280210
 Rigidbody:
   m_ObjectHideFlags: 0

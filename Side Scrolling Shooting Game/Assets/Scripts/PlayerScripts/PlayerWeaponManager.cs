@@ -7,6 +7,8 @@ public class PlayerWeaponManager : MonoBehaviour
     [SerializeField]private LayerMask ignoreMask;
 
     [SerializeField]private CinemachineImpulseSource shootImpulse;
+
+    [SerializeField]private PlayerMovement player;
     private bool _firePressed = false;
     
 
@@ -19,6 +21,7 @@ public class PlayerWeaponManager : MonoBehaviour
         {
             FireWeapon();
         }
+        
     }
     public void OnShootInput(InputAction.CallbackContext context)
     {
@@ -31,9 +34,9 @@ public class PlayerWeaponManager : MonoBehaviour
         gun.Fire();
     }
 
-    public void ChangeBullet(Bullet bullet)
+    public void ChangeBulletData(CommonBulletData bulletData)
     {
-        gun.SetBulletPrefab(bullet);
+        gun.SetBulletData(bulletData);
     }
     private void OnDestroy() 
     {
