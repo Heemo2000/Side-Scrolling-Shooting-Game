@@ -6,7 +6,6 @@ using UnityEngine;
 public class EnemySpawner : MonoBehaviour
 {
     [SerializeField]private Transform spawnPoint;
-    [SerializeField]private Player player;
     [SerializeField]private BaseEnemy enemyPrefab;
     [Min(0)]
     [SerializeField]private int enemyCount = 8;
@@ -15,7 +14,7 @@ public class EnemySpawner : MonoBehaviour
     [SerializeField]private float spawnInterval = 1.0f;
     private bool _shouldSpawn = true;
 
-    private IEnumerator SpawnEnemies()
+    private IEnumerator SpawnEnemies(Player player)
     {
         int i = 0;
         while(i < enemyCount)
@@ -30,10 +29,11 @@ public class EnemySpawner : MonoBehaviour
 
     private void OnTriggerEnter(Collider other) 
     {
-        if(other.gameObject.layer == player.gameObject.layer && _shouldSpawn == true)
+        Player player = other.GetComponent<Player>();
+        if(player != null && _shouldSpawn == true)
         {
             //Debug.Log("Spawning Enemies");
-            StartCoroutine(SpawnEnemies());
+            StartCoroutine(SpawnEnemies(player));
             _shouldSpawn = false;            
         }    
     }
