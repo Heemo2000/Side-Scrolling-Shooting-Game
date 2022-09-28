@@ -54,6 +54,8 @@ public class PlayerMovement : MonoBehaviour
     private GenericAimHandler _aimHandler;
     private float _lockedZPosition = 0f;
     public Vector3 MouseWorldPos { get => _mouseWorldPos; }
+    public GenericAimHandler AimHandler { get => _aimHandler; }
+
     void Awake() {
          _controller = GetComponent<CharacterController>();
          _controller.detectCollisions = false;
@@ -72,16 +74,24 @@ public class PlayerMovement : MonoBehaviour
 
     private void Update() 
     {
-        if(PauseController.Instance.IsGamePaused)
+        if(PauseController.Instance.IsGamePaused || GameManager.Instance.IsGameEnded)
         {
+            playerAnimator.enabled = false;
             return;
+        }
+        else if(PauseController.Instance.IsGamePaused == false)
+        {
+            playerAnimator.enabled = true;
         }
         _aimHandler.SetAimPosition(_mouseWorldPos);    
     }
 
     private void FixedUpdate() 
     {
-        
+        if(GameManager.Instance.IsGameEnded)
+        {
+            return;
+        }
         HandleMovement(); 
     }
 
@@ -132,12 +142,10 @@ public class PlayerMovement : MonoBehaviour
             _mouseWorldPos = ray.origin + ray.direction * distance;            
             if(Physics.SphereCast(_mouseWorldPos - Vector3.forward * AimCheckForwardOffSet,aimCheckRadius,Vector3.forward,out RaycastHit hit,aimCheckMaxDistance,aimMask.value))
             {
-                Debug.Log("Setting aim position to gameobject's transform.");
                 _mouseWorldPos = hit.transform.position;
             }
             
             _aimHandler.SetAimPosition(_mouseWorldPos);
-
         }
     }
 

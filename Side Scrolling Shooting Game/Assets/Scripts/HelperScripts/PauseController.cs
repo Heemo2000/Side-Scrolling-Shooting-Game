@@ -19,6 +19,10 @@ public class PauseController : GenericSingleton<PauseController>
     // Update is called once per frame
     void Update()
     {
+        if(GameManager.Instance.IsGameEnded)
+        {
+            return;
+        }
         if(Input.GetKeyDown(KeyCode.Escape))
         {
             if(Time.timeScale == 1f)
