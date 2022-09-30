@@ -20,8 +20,6 @@ public class ExplodingEnemyExplodeState : IState
         _explodingEnemy.Agent.enabled = false;
         _remainingTime = _explodingEnemy.ExplodeTime;
         _explodingEnemy.ExplodeTimerUI.gameObject.SetActive(true);
-        //_explodingEnemy.ExplodeRangeVisual.SetActive(true);
-        _explodingEnemy.ExplodeRangeVisual.transform.localScale = Vector3.one * _explodingEnemy.ExplodeDistance;
     }
 
     public void OnExit()

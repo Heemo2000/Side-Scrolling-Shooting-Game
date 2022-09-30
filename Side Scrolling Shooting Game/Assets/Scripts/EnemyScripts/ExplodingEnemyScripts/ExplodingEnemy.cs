@@ -16,7 +16,6 @@ public class ExplodingEnemy : BaseEnemy
     [SerializeField]private ParticleSystem explosionEffect;
     [SerializeField]private BarsUI explodeTimerUIPrefab;
     [SerializeField]private CinemachineImpulseSource explodeImpulse;
-    [SerializeField]private GameObject explodeRangeVisual;
     [Range(5f,50f)]
     [SerializeField]private float damage = 20f;
     [SerializeField]private Transform frontCheck;
@@ -34,7 +33,6 @@ public class ExplodingEnemy : BaseEnemy
     public BarsUI ExplodeTimerUI { get => _explodeTimerUI; }
     public CinemachineImpulseSource ExplodeImpulse { get => explodeImpulse; }
     public float Damage { get => damage; }
-    public GameObject ExplodeRangeVisual { get => explodeRangeVisual; }
     public Transform FrontCheck { get => frontCheck;}
     public LayerMask RayCastIgnore { get => rayCastIgnore; }
     public float MaxFrontCheckDistance { get => maxFrontCheckDistance; }
@@ -65,7 +63,6 @@ public class ExplodingEnemy : BaseEnemy
         _explodeTimerUI.FollowTarget = transform;
         _explodeTimerUI.gameObject.SetActive(false);
         _enemyStateMachine.SetState(_chaseState);
-        explodeRangeVisual.SetActive(false);
     }
 
     // Update is called once per frame
