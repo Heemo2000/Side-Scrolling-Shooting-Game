@@ -9,6 +9,7 @@ public class StickyBullet : NormalBullet
     [Min(0f)]
     [SerializeField]private float stickDuration = 1.0f;
 
+    [SerializeField]private ParticleSystem explosionEffect;
     private Coroutine _stickAndExplodeCoroutine;
     private IEnumerator StickAndExplode(Collider other)
     {
@@ -34,6 +35,8 @@ public class StickyBullet : NormalBullet
             Health health = collider.gameObject.GetComponent<Health>();
             health?.OnHealthDamaged?.Invoke(base.BulletData.damage);
         }
+
+        Instantiate(explosionEffect,transform.position,Quaternion.identity);
     }
     protected override void OnTriggerEnter(Collider other) 
     {

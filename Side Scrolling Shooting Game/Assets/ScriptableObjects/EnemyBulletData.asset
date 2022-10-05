@@ -14,8 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ignoreMask:
     serializedVersion: 2
-    m_Bits: 256
+    m_Bits: 260
   damage: 10
   moveSpeed: 5
   destroyTime: 2
   tripleFire: 0
+  bulletPrefab: {fileID: 0}
