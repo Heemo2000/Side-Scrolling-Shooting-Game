@@ -14,7 +14,7 @@ public class PlayerWeaponManager : MonoBehaviour
 
     private void Start() 
     {
-        gun.OnBulletShoot += GenerateFireShake;
+        gun.OnBulletShoot.AddListener(GenerateFireShake);
     }
     private void Update() {
         if(_firePressed)
@@ -40,7 +40,7 @@ public class PlayerWeaponManager : MonoBehaviour
     }
     private void OnDestroy() 
     {
-        gun.OnBulletShoot -= GenerateFireShake;    
+        gun.OnBulletShoot.RemoveAllListeners();    
     }
 
     private void GenerateFireShake()

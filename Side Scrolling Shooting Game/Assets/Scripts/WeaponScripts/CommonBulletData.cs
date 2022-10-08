@@ -13,4 +13,6 @@ public class CommonBulletData : ScriptableObject
     public float destroyTime = 2f;
     public bool tripleFire = false;
     public Bullet bulletPrefab;
+
+    public SoundType bulletSound;
 }

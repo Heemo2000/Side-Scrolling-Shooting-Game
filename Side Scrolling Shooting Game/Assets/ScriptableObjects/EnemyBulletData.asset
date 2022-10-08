@@ -19,4 +19,5 @@ MonoBehaviour:
   moveSpeed: 5
   destroyTime: 2
   tripleFire: 0
-  bulletPrefab: {fileID: 0}
+  bulletPrefab: {fileID: 4269561001705584445, guid: 568ae42b3f216ad40919e21f723b88c9,
+    type: 3}

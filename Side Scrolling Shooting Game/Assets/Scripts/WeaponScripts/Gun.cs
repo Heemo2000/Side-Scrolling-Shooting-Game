@@ -1,6 +1,6 @@
 using System;
 using UnityEngine;
-using Cinemachine;
+using UnityEngine.Events;
 
 public class Gun : MonoBehaviour
 {
@@ -9,8 +9,11 @@ public class Gun : MonoBehaviour
     [SerializeField]private Transform firePoint;
 
     [SerializeField]private CommonBulletData bulletData;
+
+    [SerializeField]private AudioSource gunAudioSource;
+    public UnityEvent OnBulletShoot;
     private float _nextTimeToFire = 0.0f;
-    public Action OnBulletShoot;
+    
     public void Fire()
     {
         if(_nextTimeToFire < Time.time)
@@ -37,6 +40,7 @@ public class Gun : MonoBehaviour
                 bullet.BulletData = bulletData;
             } 
             
+            SoundManager.Instance?.PlaySFX(bulletData.bulletSound);
             _nextTimeToFire = Time.time + fireInterval;
         }
     }

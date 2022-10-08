@@ -16,8 +16,8 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 1036
   damage: 10
-  moveSpeed: 1
-  destroyTime: 10
+  moveSpeed: 2
+  destroyTime: 2
   tripleFire: 0
   bulletPrefab: {fileID: 6146982716207028794, guid: 2d6b584b523b31d4db963f9665820cf9,
     type: 3}
