@@ -6,39 +6,28 @@ public class ParallaxEffect : MonoBehaviour
 {
     [SerializeField]GameObject relativeObject;
 
-    [SerializeField]float parallaxEffect;
+    [SerializeField]private Vector2 parallaxSpeed;
 
     [Min(0f)]
-    [SerializeField]private float halfLength = 20f;
-    private float _currentPosition;
-
+    [SerializeField]private float checkDistance = 20f;
     private Vector3 _relativeObjPreviousPos;
-    void Start()
-    {
-        _currentPosition=transform.position.x;
-        _relativeObjPreviousPos = relativeObject.transform.position;
-    }
 
     // Update is called once per frame
     void Update()
     {
-        Vector3 direction = (relativeObject.transform.position - _relativeObjPreviousPos).normalized;
-        _currentPosition += direction.x * parallaxEffect;
-        float displacement = relativeObject.transform.position.x - _currentPosition;
+        Vector2 direction = (relativeObject.transform.position - _relativeObjPreviousPos).normalized;
 
-        if(displacement >= halfLength)
+        transform.position += new Vector3(direction.x * parallaxSpeed.x,direction.y* parallaxSpeed.y) * Time.deltaTime;
+        
+        float displacement = relativeObject.transform.position.x - transform.position.x;
+        if(displacement >= checkDistance)
         {
-            _currentPosition -= halfLength;
+            transform.position += Vector3.right * checkDistance;
         }
-        else if(displacement < -halfLength)
+        else if(displacement <= -checkDistance)
         {
-            _currentPosition += halfLength;
-        } 
-
-
-        transform.position = new Vector3(_currentPosition,
-                                         transform.position.y,
-                                         transform.position.z);
+            transform.position -= Vector3.right * checkDistance;
+        }
 
         _relativeObjPreviousPos = relativeObject.transform.position;
     }
@@ -46,6 +35,6 @@ public class ParallaxEffect : MonoBehaviour
     private void OnDrawGizmos() 
     {
         Gizmos.color = Color.red;
-        Gizmos.DrawLine(transform.position,transform.position + Vector3.right * halfLength);    
+        Gizmos.DrawLine(transform.position,transform.position + Vector3.right * checkDistance);    
     }
 }
