@@ -7,7 +7,13 @@ public class ParallaxEffect : MonoBehaviour
     [SerializeField]GameObject relativeObject;
 
     [SerializeField]private Vector2 parallaxSpeed;
+    
+    [Range(0f,1f)]
+    [SerializeField]private float dampX = 0.5f;
 
+    [Range(0f,1f)]
+    [SerializeField]private float dampY = 0.5f;
+    
     [Min(0f)]
     [SerializeField]private float checkDistance = 20f;
     private Vector3 _relativeObjPreviousPos;
@@ -17,7 +23,7 @@ public class ParallaxEffect : MonoBehaviour
     {
         Vector2 direction = (relativeObject.transform.position - _relativeObjPreviousPos).normalized;
 
-        transform.position += new Vector3(direction.x * parallaxSpeed.x,direction.y* parallaxSpeed.y) * Time.deltaTime;
+        transform.position += new Vector3(direction.x * parallaxSpeed.x * (1f - dampX),direction.y* parallaxSpeed.y * (1f - dampY)) * Time.deltaTime;
         
         float displacement = relativeObject.transform.position.x - transform.position.x;
         if(displacement >= checkDistance)
