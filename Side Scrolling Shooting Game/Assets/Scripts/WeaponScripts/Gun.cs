@@ -16,6 +16,7 @@ public class Gun : MonoBehaviour
     
     public void Fire()
     {
+        fireInterval = bulletData.fireInterval;
         if(_nextTimeToFire < Time.time)
         {
             OnBulletShoot?.Invoke();
