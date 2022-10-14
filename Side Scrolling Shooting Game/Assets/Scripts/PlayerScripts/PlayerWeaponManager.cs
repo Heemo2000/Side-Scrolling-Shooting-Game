@@ -11,6 +11,7 @@ public class PlayerWeaponManager : MonoBehaviour
     [SerializeField]private PlayerMovement player;
     private bool _firePressed = false;
     
+    private Coroutine _bulletDataCoroutine;
 
     private void Start() 
     {
@@ -36,7 +37,10 @@ public class PlayerWeaponManager : MonoBehaviour
 
     public void ChangeBulletData(CommonBulletData bulletData)
     {
-        gun.SetBulletData(bulletData);
+        if(_bulletDataCoroutine == null)
+        {
+            _bulletDataCoroutine = StartCoroutine(gun.SetBulletDataCoroutine(bulletData));
+        }
     }
     private void OnDestroy() 
     {

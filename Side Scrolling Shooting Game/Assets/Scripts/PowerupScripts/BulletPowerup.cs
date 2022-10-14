@@ -4,7 +4,7 @@ public class BulletPowerup : Powerup
 {
     [SerializeField]private CommonBulletData bulletData;
 
-    private void OnCollisionEnter(Collision other) 
+    private void OnTriggerEnter(Collider other) 
     {
          Player player = other.gameObject.GetComponent<Player>();
 

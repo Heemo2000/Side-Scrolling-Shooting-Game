@@ -22,5 +22,8 @@ public class CommonBulletData : ScriptableObject
     public SoundType bulletSound;
 
     [Min(0f)]
-    public float fireInterval = 0.2f; 
+    public float fireInterval = 0.2f;
+
+    [Min(0f)]
+    public float timeToAllowSpawn = 1.0f; 
 }

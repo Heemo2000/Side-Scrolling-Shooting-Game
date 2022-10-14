@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -8,40 +9,46 @@ public class Gun : MonoBehaviour
     [SerializeField]private float fireInterval = 0.1f;
     [SerializeField]private Transform firePoint;
 
-    [SerializeField]private CommonBulletData bulletData;
+    [SerializeField]private CommonBulletData defaultBulletData;
 
     [SerializeField]private AudioSource gunAudioSource;
     public UnityEvent OnBulletShoot;
     private float _nextTimeToFire = 0.0f;
-    
+
+    private CommonBulletData _currentBulletData;
+
+    private void Start() 
+    {
+        _currentBulletData = defaultBulletData;    
+    }    
     public void Fire()
     {
-        fireInterval = bulletData.fireInterval;
+        fireInterval = defaultBulletData.fireInterval;
         if(_nextTimeToFire < Time.time)
         {
             OnBulletShoot?.Invoke();
             Quaternion initialRotation = Quaternion.LookRotation(firePoint.forward,firePoint.right);
-            if(bulletData.tripleFire)
+            if(_currentBulletData.tripleFire)
             {
                 Quaternion firstBulletRotation = initialRotation * Quaternion.AngleAxis(30f,Vector3.up);
                 Quaternion thirdBulletRotation = initialRotation * Quaternion.AngleAxis(-30f,Vector3.up);
 
-                Bullet firstBullet = Instantiate(bulletData.bulletPrefab,firePoint.position,firstBulletRotation);
-                firstBullet.BulletData = bulletData;
+                Bullet firstBullet = Instantiate(_currentBulletData.bulletPrefab,firePoint.position,firstBulletRotation);
+                firstBullet.BulletData = _currentBulletData;
 
-                Bullet secondBullet = Instantiate(bulletData.bulletPrefab,firePoint.position,initialRotation);
-                secondBullet.BulletData = bulletData;
+                Bullet secondBullet = Instantiate(_currentBulletData.bulletPrefab,firePoint.position,initialRotation);
+                secondBullet.BulletData = _currentBulletData;
 
-                Bullet thirdBullet = Instantiate(bulletData.bulletPrefab,firePoint.position,thirdBulletRotation);
-                thirdBullet.BulletData = bulletData;
+                Bullet thirdBullet = Instantiate(_currentBulletData.bulletPrefab,firePoint.position,thirdBulletRotation);
+                thirdBullet.BulletData = _currentBulletData;
             }
             else
             {
-                Bullet bullet = Instantiate(bulletData.bulletPrefab,firePoint.position,initialRotation);
-                bullet.BulletData = bulletData;
+                Bullet bullet = Instantiate(_currentBulletData.bulletPrefab,firePoint.position,initialRotation);
+                bullet.BulletData = _currentBulletData;
             } 
             
-            SoundManager.Instance?.PlaySFX(bulletData.bulletSound);
+            SoundManager.Instance?.PlaySFX(_currentBulletData.bulletSound);
             _nextTimeToFire = Time.time + fireInterval;
         }
     }
@@ -51,8 +58,15 @@ public class Gun : MonoBehaviour
     {
         if(bulletData != null)
         {
-            this.bulletData = bulletData;
+            _currentBulletData = bulletData;
         }
+    }
+
+    public IEnumerator SetBulletDataCoroutine(CommonBulletData bulletData)
+    {
+        SetBulletData(bulletData);
+        yield return new WaitForSeconds(bulletData.timeToAllowSpawn);
+        SetBulletData(defaultBulletData);
     }
     
 }
