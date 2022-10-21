@@ -1,5 +1,5 @@
 using UnityEngine;
-
+using UnityEngine.VFX;
 
 [CreateAssetMenu(menuName = "Scriptable Objects/Common Bullet Data",fileName = "Common Bullet Data")]
 public class CommonBulletData : ScriptableObject
@@ -25,5 +25,7 @@ public class CommonBulletData : ScriptableObject
     public float fireInterval = 0.2f;
 
     [Min(0f)]
-    public float timeToAllowSpawn = 1.0f; 
+    public float timeToAllowSpawn = 1.0f;
+
+    public VisualEffect destroyEffect;
 }

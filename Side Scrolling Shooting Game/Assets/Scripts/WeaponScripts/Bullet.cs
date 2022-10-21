@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.VFX;
 
 public abstract class Bullet : MonoBehaviour
 {
@@ -47,5 +48,9 @@ public abstract class Bullet : MonoBehaviour
         Health health = other.gameObject.GetComponent<Health>();
         health?.OnHealthDamaged(_bulletData.damage);
         Destroy(gameObject);
+        
+        VisualEffect destroyEffect = Instantiate(_bulletData.destroyEffect,transform.position,Quaternion.identity);
+        destroyEffect.Play();
+        Destroy(destroyEffect.transform.gameObject,2.0f);
     }
 }
