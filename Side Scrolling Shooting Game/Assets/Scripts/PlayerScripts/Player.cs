@@ -27,11 +27,13 @@ public class Player : MonoBehaviour
         _playerHealth.OnCurrentHealthSet += _healthBar.SetFillAmount;
         _playerHealth.OnHealthDamaged += OnHealthDamaged;
         _playerHealth.OnDeath += DisablePlayer;
+
     }
 
     public void OnHealthDamaged(float damage)
     {
         //damageImpulse.GenerateImpulse();
+        HealthLostVisual.Instance?.ShowVisual();
     }
 
     private void DisablePlayer()
