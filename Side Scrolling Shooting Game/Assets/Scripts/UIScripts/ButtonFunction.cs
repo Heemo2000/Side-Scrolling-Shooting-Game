@@ -14,15 +14,10 @@ public class ButtonFunction : MonoBehaviour
         {
             _button.onClick.AddListener(()=>SoundManager.Instance.PlaySFX(SoundType.ButtonClick));
         }
-        
-    }
-    public void Play()
-    {
-        SceneManager.LoadScene(StringHolder.GameplaySceneName);   
     }
     public void RestartGame()
     {
-        Play();
+        GameManager.Instance?.ReloadCurrentLevel();
     }
     public void BackToMain()
     {
@@ -34,6 +29,10 @@ public class ButtonFunction : MonoBehaviour
         Application.Quit();
     }
 
+    public void LoadNextLevel()
+    {
+        GameManager.Instance?.LoadNextLevel();
+    }
     private void OnDestroy() {
         _button.onClick.RemoveAllListeners();
     }

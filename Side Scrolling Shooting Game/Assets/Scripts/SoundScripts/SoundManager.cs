@@ -1,8 +1,8 @@
 using System;
 using System.Collections.Generic;
-
 using UnityEngine.Audio;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class SoundManager : GenericSingleton<SoundManager>
 {
@@ -29,6 +29,7 @@ public class SoundManager : GenericSingleton<SoundManager>
     private void Start() 
     {
         PlayMusic(startingMusic);
+        SceneManager.sceneLoaded += OnSceneLoaded;
     }
 
     public void PlayMusic(SoundType soundType)
@@ -90,5 +91,17 @@ public class SoundManager : GenericSingleton<SoundManager>
         {
             Debug.Log("Sound to play not found!!");
         }        
+    }
+
+    private void OnSceneLoaded(Scene scene,LoadSceneMode mode)
+    {
+        if(scene.name == "MainMenu")
+        {
+            PlayMusic(SoundType.MainMenuTheme);
+        }
+    }
+
+    private void OnDestroy() {
+        SceneManager.sceneLoaded -= OnSceneLoaded;
     }
 }

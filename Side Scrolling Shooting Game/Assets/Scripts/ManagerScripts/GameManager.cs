@@ -15,6 +15,8 @@ public class GameManager : GenericSingleton<GameManager>
     public bool IsGameEnded { get => _isGameEnded; }
 
     private Player _player;
+    private int _currentLevel = 1;
+
     // Start is called before the first frame update
     protected override void Awake() {
         base.Awake();
@@ -25,6 +27,7 @@ public class GameManager : GenericSingleton<GameManager>
         OnLevelStart?.Invoke();
         OnLevelComplete.AddListener(EndGame);
         OnGameOver.AddListener(EndGame);
+        SoundManager.Instance?.PlayMusic(SoundType.LevelTheme);
     }
 
     private void EndGame()
@@ -44,6 +47,16 @@ public class GameManager : GenericSingleton<GameManager>
         return _player.transform.position;
     }
 
+    public void LoadNextLevel()
+    {
+        SceneLoader.Instance?.LoadScene("Level" + (_currentLevel + 1));
+        _currentLevel++;
+    }
+
+    public void ReloadCurrentLevel()
+    {
+        SceneLoader.Instance?.LoadScene("Level" + _currentLevel);
+    }
     private void OnDestroy() 
     {
         OnLevelStart.RemoveAllListeners();
