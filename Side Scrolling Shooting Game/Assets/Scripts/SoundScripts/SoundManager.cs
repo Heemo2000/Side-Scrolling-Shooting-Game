@@ -12,6 +12,8 @@ public class SoundManager : GenericSingleton<SoundManager>
     [SerializeField]private Sound[] sounds;
 
     [SerializeField]private SoundType startingMusic;
+    [SerializeField]private AudioMixer musicAudioMixer;
+    [SerializeField]private AudioMixer sfxAudioMixer;
     private Dictionary<SoundType,Sound> soundDictionary;
     protected override void Awake() {
         
@@ -65,7 +67,15 @@ public class SoundManager : GenericSingleton<SoundManager>
         sfxAudioSource.Stop();
     }
 
+    public void SetMusicVolume(float volume)
+    {
+        musicAudioMixer.SetFloat("musicVol",volume);
+    }
 
+    public void SetSFXVolume(float volume)
+    {
+        sfxAudioMixer.SetFloat("sfxVol",volume);
+    }
     private void Play(SoundType soundType,AudioSource source)
     {
         if(soundDictionary.TryGetValue(soundType,out Sound sound))
