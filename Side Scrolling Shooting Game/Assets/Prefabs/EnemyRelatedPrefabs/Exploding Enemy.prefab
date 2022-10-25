@@ -1,5 +1,36 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &343309299571856038
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4404144476263590600}
+  m_Layer: 8
+  m_Name: Powerup Spawn Position
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4404144476263590600
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 343309299571856038}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 2.71, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 8416324349214212857}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1302381030603208638
 GameObject:
   m_ObjectHideFlags: 0
@@ -30,6 +61,37 @@ Transform:
   m_Children: []
   m_Father: {fileID: 8416324349214212857}
   m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &3171908293944784383
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8607070128221791480}
+  m_Layer: 8
+  m_Name: Health Bar Follow Transform
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8607070128221791480
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3171908293944784383}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 2.5, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 8416324349214212857}
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &4483747838236623332
 GameObject:
@@ -99,26 +161,17 @@ MonoBehaviour:
         - serializedVersion: 3
           time: 0
           value: 0
-          inSlope: 4
-          outSlope: 4
+          inSlope: 1
+          outSlope: 1
           tangentMode: 34
           weightedMode: 0
           inWeight: 0
           outWeight: 0.33333334
         - serializedVersion: 3
-          time: 0.5
+          time: 1
           value: 1
           inSlope: 1
           outSlope: 1
-          tangentMode: 34
-          weightedMode: 0
-          inWeight: 0.33333334
-          outWeight: 0.33333334
-        - serializedVersion: 3
-          time: 1
-          value: 0.5
-          inSlope: -2
-          outSlope: -2
           tangentMode: 34
           weightedMode: 0
           inWeight: 0.33333334
@@ -139,6 +192,15 @@ MonoBehaviour:
           inWeight: 0
           outWeight: 0
         - serializedVersion: 3
+          time: 0.48164552
+          value: 0.23198241
+          inSlope: 0.9632909
+          outSlope: 0.9632909
+          tangentMode: 0
+          weightedMode: 0
+          inWeight: 0.33333334
+          outWeight: 0.33333334
+        - serializedVersion: 3
           time: 1
           value: 1
           inSlope: 2
@@ -153,14 +215,14 @@ MonoBehaviour:
       m_AttackTime: 0.1
       m_SustainTime: 0.2
       m_DecayTime: 0.7
-      m_ScaleWithImpact: 1
+      m_ScaleWithImpact: 0
       m_HoldForever: 0
     m_ImpactRadius: 100
     m_DirectionMode: 0
     m_DissipationMode: 2
     m_DissipationDistance: 1000
     m_PropagationSpeed: 500
-  m_DefaultVelocity: {x: 1, y: 1, z: 1}
+  m_DefaultVelocity: {x: 1, y: 1, z: 0}
 --- !u!1 &8416324347721918301
 GameObject:
   m_ObjectHideFlags: 0
@@ -229,6 +291,8 @@ Transform:
   - {fileID: 8416324347721918302}
   - {fileID: 2256153862390781661}
   - {fileID: 6971440131471461109}
+  - {fileID: 8607070128221791480}
+  - {fileID: 4404144476263590600}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -258,6 +322,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   target: {fileID: 0}
+  healthBarPrefab: {fileID: 5193338748830053449, guid: e21757dcbbbec134bb15edfecefd841b,
+    type: 3}
+  healthBarFollowTransform: {fileID: 8607070128221791480}
+  powerupsToSpawn:
+  - {fileID: 3913622095999872783, guid: cf2d9f57f55e9f840b983ad6571d45a6, type: 3}
+  powerupSpawnPos: {fileID: 4404144476263590600}
   chaseSpeed: 8
   explodeDistance: 1.8
   explodeTime: 0.25
@@ -267,7 +337,6 @@ MonoBehaviour:
   explodeTimerUIPrefab: {fileID: 5193338748830053449, guid: b1977c1b79f0dbf4d8e65ca9a8a9c7bc,
     type: 3}
   explodeImpulse: {fileID: 8039873511256859343}
-  explodeRangeVisual: {fileID: 0}
   damage: 20
   frontCheck: {fileID: 6971440131471461109}
   rayCastIgnore:

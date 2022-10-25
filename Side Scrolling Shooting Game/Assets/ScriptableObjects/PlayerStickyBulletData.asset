@@ -21,3 +21,8 @@ MonoBehaviour:
   tripleFire: 0
   bulletPrefab: {fileID: 6146982716207028794, guid: 2d6b584b523b31d4db963f9665820cf9,
     type: 3}
+  bulletSound: 0
+  fireInterval: 0.2
+  timeToAllowSpawn: 15
+  destroyEffect: {fileID: 577047026596254638, guid: cfefaa935e3d09e4f824a10711ce1c6d,
+    type: 3}

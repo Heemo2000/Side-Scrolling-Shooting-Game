@@ -53,7 +53,7 @@ public class ExplodingEnemyExplodeState : IState
         
         if(Utility.CheckDistance(_explodingEnemy.transform.position,_explodingEnemy.Target.position,_explodingEnemy.ExplodeDistance))
         {
-            _explodingEnemy.ExplodeImpulse.GenerateImpulseAtPositionWithVelocity(_explodingEnemy.transform.position,Vector3.zero);
+            _explodingEnemy.ExplodeImpulse.GenerateImpulse();
             targetHealth.OnHealthDamaged?.Invoke(_explodingEnemy.Damage);
         }
         

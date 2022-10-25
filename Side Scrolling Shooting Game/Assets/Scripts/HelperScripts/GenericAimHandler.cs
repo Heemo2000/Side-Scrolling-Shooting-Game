@@ -13,6 +13,11 @@ public class GenericAimHandler : MonoBehaviour
     
     private GameObject _aimPointerPrimitive;
     private Vector3 _targetAimPosition;
+
+    public Vector3 AimPosition
+    {
+        get => _aimPointerPrimitive.transform.position;
+    }
     private void Awake() 
     {
 

@@ -24,6 +24,7 @@ public class ExplodingEnemy : BaseEnemy
     [Min(1f)]
     [SerializeField]private float maxFrontCheckDistance = 4f;
 
+    
     public float ChaseSpeed { get => chaseSpeed;}
     public float ExplodeDistance { get => explodeDistance;}
     public float ExplodeTime { get => explodeTime;}
@@ -36,7 +37,7 @@ public class ExplodingEnemy : BaseEnemy
     public Transform FrontCheck { get => frontCheck;}
     public LayerMask RayCastIgnore { get => rayCastIgnore; }
     public float MaxFrontCheckDistance { get => maxFrontCheckDistance; }
-
+    
     private StateMachine _enemyStateMachine;
 
     private NavMeshAgent _agent;
@@ -63,6 +64,7 @@ public class ExplodingEnemy : BaseEnemy
         _explodeTimerUI.FollowTarget = transform;
         _explodeTimerUI.gameObject.SetActive(false);
         _enemyStateMachine.SetState(_chaseState);
+        
     }
 
     // Update is called once per frame
