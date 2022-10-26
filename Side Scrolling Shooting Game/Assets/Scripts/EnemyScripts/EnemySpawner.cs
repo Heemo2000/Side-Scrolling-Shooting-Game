@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class EnemySpawner : MonoBehaviour
 {
-    [SerializeField]private Transform spawnPoint;
+    [SerializeField]private Transform[] spawnPoints;
     [SerializeField]private BaseEnemy enemyPrefab;
     [Min(0)]
     [SerializeField]private int enemyCount = 8;
@@ -14,14 +14,16 @@ public class EnemySpawner : MonoBehaviour
     [SerializeField]private float spawnInterval = 1.0f;
     private bool _shouldSpawn = true;
 
+    private int _spawnPointIndex = 0;
     private IEnumerator SpawnEnemies(Player player)
     {
         int i = 0;
         while(i < enemyCount)
         {
-            BaseEnemy enemy = Instantiate(enemyPrefab,spawnPoint.position,Quaternion.identity);
+            BaseEnemy enemy = Instantiate(enemyPrefab,spawnPoints[_spawnPointIndex].position,Quaternion.identity);
             enemy.Target = player.transform;
             yield return new WaitForSeconds(spawnInterval);
+            _spawnPointIndex = (_spawnPointIndex + 1) % spawnPoints.Length;
             i++;
         }
     }

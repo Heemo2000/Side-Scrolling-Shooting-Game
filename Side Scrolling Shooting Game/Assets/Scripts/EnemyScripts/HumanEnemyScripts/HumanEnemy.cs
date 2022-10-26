@@ -99,10 +99,6 @@ public class HumanEnemy : BaseEnemy
 
         Ray ray = new Ray(transform.position,transform.forward);      
         _shouldStop = Physics.SphereCast(ray,0.1f,frontSideCheckDistance,requiredMaskValue);
-        if(_shouldStop)
-        {
-            Debug.Log("Now, stop.");
-        }
     }
 
     private void OnDrawGizmos() 

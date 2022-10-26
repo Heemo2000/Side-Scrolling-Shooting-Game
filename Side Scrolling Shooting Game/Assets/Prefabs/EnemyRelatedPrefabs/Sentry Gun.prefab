@@ -141,10 +141,11 @@ MonoBehaviour:
   healthBarFollowTransform: {fileID: 3074088090370278138}
   powerupsToSpawn:
   - {fileID: 3913622095999872783, guid: cf2d9f57f55e9f840b983ad6571d45a6, type: 3}
+  - {fileID: 6367928939034758423, guid: a4a12fb018176b146b883eef1ed93d6a, type: 3}
   powerupSpawnPos: {fileID: 6420514729889763156}
   lookOffSetY: 2
   firePoint: {fileID: 5851154335501095016}
-  targetCheckDistance: 30
+  targetCheckDistance: 20
   rayCastIgnoreLayerMask:
     serializedVersion: 2
     m_Bits: 1796
@@ -192,8 +193,8 @@ SphereCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 1.0287135
-  m_Center: {x: 0.3612864, y: 0, z: -0.79999995}
+  m_Radius: 0.88614464
+  m_Center: {x: 0.21871758, y: 0, z: -0.79999995}
 --- !u!1 &6420514729890494255
 GameObject:
   m_ObjectHideFlags: 0
@@ -340,7 +341,7 @@ GameObject:
   m_Layer: 8
   m_Name: Fire Point
   m_TagString: Untagged
-  m_Icon: {fileID: 0}
+  m_Icon: {fileID: -5397416234189338067, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -352,7 +353,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6485442492115389398}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.35, z: 1.725}
+  m_LocalPosition: {x: 0, y: 0.35, z: 1.884}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -625,7 +626,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 90f8b313ab12ddc4db5e701d13c437be, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fireInterval: 0.5
+  fireInterval: 1.8
   firePoint: {fileID: 5851154335501095016}
   defaultBulletData: {fileID: 11400000, guid: e010dd78c998c7f49a3e581c44f704e9, type: 2}
   gunAudioSource: {fileID: 0}

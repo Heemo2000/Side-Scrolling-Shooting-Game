@@ -147,8 +147,8 @@ MonoBehaviour:
       m_PostInfinity: 2
       m_RotationOrder: 4
     m_ImpulseDuration: 2
-    m_ImpulseType: 3
-    m_DissipationRate: 0.135
+    m_ImpulseType: 2
+    m_DissipationRate: 0.325
     m_RawSignal: {fileID: 11400000, guid: 3c8ae375c8047534597abc54a369ef64, type: 2}
     m_AmplitudeGain: 10
     m_FrequencyGain: 10
@@ -328,6 +328,9 @@ MonoBehaviour:
   powerupsToSpawn:
   - {fileID: 3913622095999872783, guid: cf2d9f57f55e9f840b983ad6571d45a6, type: 3}
   powerupSpawnPos: {fileID: 4404144476263590600}
+  powerupSpawnProbability: 0.5
+  destroyEffect: {fileID: 4941061384096392757, guid: e107d4504c02931448876f875da13555,
+    type: 3}
   chaseSpeed: 8
   explodeDistance: 1.8
   explodeTime: 0.25

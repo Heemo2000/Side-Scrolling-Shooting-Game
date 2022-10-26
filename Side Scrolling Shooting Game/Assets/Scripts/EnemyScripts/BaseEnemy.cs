@@ -9,6 +9,9 @@ public abstract class BaseEnemy : MonoBehaviour
     [SerializeField]private Transform healthBarFollowTransform;
     [SerializeField]private Powerup[] powerupsToSpawn;
     [SerializeField]private Transform powerupSpawnPos;
+    [Range(0f,1f)]
+    [SerializeField]private float powerupSpawnProbability = 0.5f;
+    [SerializeField]private ParticleSystem destroyEffect;
     public Transform Target { get => target; set => target = value; }
     public Health EnemyHealth { get => _enemyHealth; }
     public Powerup[] PowerupsToSpawn { get => powerupsToSpawn; set => powerupsToSpawn = value; }
@@ -32,6 +35,7 @@ public abstract class BaseEnemy : MonoBehaviour
 
     protected void DestroyEnemy()
     {
+        Instantiate(destroyEffect,transform.position,Quaternion.identity);
         Destroy(_healthBar.gameObject);
         Destroy(gameObject);
     }
@@ -44,7 +48,7 @@ public abstract class BaseEnemy : MonoBehaviour
         {
             return;
         }
-        if(Random.value >= 0.6f)
+        if(Random.value >= powerupSpawnProbability)
         {
             int powerupIndex = Random.Range(0,powerupsToSpawn.Length);
             Instantiate(powerupsToSpawn[powerupIndex],powerupSpawnPos.position,Quaternion.identity);

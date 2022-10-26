@@ -359,8 +359,13 @@ MonoBehaviour:
   healthBarPrefab: {fileID: 5193338748830053449, guid: e21757dcbbbec134bb15edfecefd841b,
     type: 3}
   healthBarFollowTransform: {fileID: 5284225685703272269}
-  powerupsToSpawn: []
+  powerupsToSpawn:
+  - {fileID: 3913622095999872783, guid: cf2d9f57f55e9f840b983ad6571d45a6, type: 3}
+  - {fileID: 6918916467868058521, guid: cd1c8e44e0e53674ba54f366c7e05439, type: 3}
   powerupSpawnPos: {fileID: 4831798900561578981}
+  powerupSpawnProbability: 0.5
+  destroyEffect: {fileID: 4941061384096392757, guid: e107d4504c02931448876f875da13555,
+    type: 3}
   eye: {fileID: 192975601}
   frontSideCheckDistance: 3
   shootingCheckDistance: 21.8

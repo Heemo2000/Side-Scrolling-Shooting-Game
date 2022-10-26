@@ -43,7 +43,7 @@ ParticleSystem:
   serializedVersion: 8
   lengthInSec: 1
   simulationSpeed: 1
-  stopAction: 3
+  stopAction: 2
   cullingMode: 0
   ringBufferMode: 0
   ringBufferLoopRange: {x: 0, y: 1}
@@ -1594,7 +1594,7 @@ ParticleSystem:
     tilesY: 6
     animationType: 0
     rowIndex: 0
-    cycles: 1
+    cycles: 1.43
     uvChannelMask: -1
     rowMode: 1
     sprites:

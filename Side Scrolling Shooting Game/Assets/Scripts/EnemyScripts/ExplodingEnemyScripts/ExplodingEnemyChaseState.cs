@@ -36,7 +36,7 @@ public class ExplodingEnemyChaseState : IState
         if(Physics.SphereCast(ray,0.15f,out RaycastHit hit,_explodingEnemy.MaxFrontCheckDistance,
                               ~((1 << _explodingEnemy.Target.gameObject.layer) | _explodingEnemy.RayCastIgnore.value)))
         {
-            Debug.Log("Detecting : " + hit.transform.name);
+            //Debug.Log("Detecting : " + hit.transform.name);
             _explodingEnemy.Agent.enabled = false;
             _explodingEnemy.Animator.SetFloat(StringHolder.MoveInputAnimParam,0.0f);
         }
