@@ -49,7 +49,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rotateSpeed: 20
   powerupGraphic: {fileID: 4064875798360273090}
-  healthRecharge: 30
+  healthRecharge: 60
 --- !u!54 &3913622095999872784
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -77,7 +77,7 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
+  m_Size: {x: 2, y: 2, z: 2}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!1001 &4603785469034354473
 PrefabInstance:
