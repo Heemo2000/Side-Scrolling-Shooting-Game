@@ -5,6 +5,9 @@ using UnityEngine.SceneManagement;
 using UnityEngine.Events;
 public class SceneLoader : GenericSingleton<SceneLoader>
 {
+    private void Start() {
+        DontDestroyOnLoad(this);
+    }
     public void LoadScene(string name)
     {
         StartCoroutine(Load(name));
@@ -12,6 +15,7 @@ public class SceneLoader : GenericSingleton<SceneLoader>
 
     private IEnumerator Load(string name)
     {
+        Debug.Log("Loading scene: " + name);
         AsyncOperation loadOperation = SceneManager.LoadSceneAsync(name);
         loadOperation.allowSceneActivation = false;
 

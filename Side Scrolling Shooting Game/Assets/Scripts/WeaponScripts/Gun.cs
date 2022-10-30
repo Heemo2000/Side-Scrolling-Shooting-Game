@@ -48,7 +48,7 @@ public class Gun : MonoBehaviour
                 bullet.BulletData = _currentBulletData;
             } 
             
-            SoundManager.Instance?.PlaySFX(_currentBulletData.bulletSound);
+            SoundManager.Instance?.PlaySFXInstantly(_currentBulletData.bulletSound);
             _nextTimeToFire = Time.time + fireInterval;
         }
     }

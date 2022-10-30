@@ -38,6 +38,7 @@ public class Player : MonoBehaviour
 
     private void DisablePlayer()
     {
+        //SoundManager.Instance?.PlaySFX(SoundType.Explosion);
         GameManager.Instance.OnGameOver?.Invoke();
         _healthBar.gameObject.SetActive(false);
         gameObject.SetActive(false);

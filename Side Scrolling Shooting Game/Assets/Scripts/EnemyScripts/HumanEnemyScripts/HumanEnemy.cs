@@ -87,7 +87,7 @@ public class HumanEnemy : BaseEnemy
         Vector3 targetLookPosition = Target.position + Vector3.up * lookOffSetY;
         Vector3 direction = (targetLookPosition - eye.position).normalized;
         int shootCheckMaskValue = ~(1 << Target.gameObject.layer | collisionIgnoreLayerMask.value);
-        if(!Physics.Raycast(eye.position,direction,shootingCheckDistance,shootCheckMaskValue))
+        if(!Physics.Raycast(eye.position,direction,shootingCheckDistance,shootCheckMaskValue) && Target.gameObject.activeInHierarchy == true)
         {
             gun?.Fire();
         }

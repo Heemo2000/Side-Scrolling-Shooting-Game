@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class ScoreManager : GenericSingleton<ScoreManager>
 {
@@ -19,6 +20,11 @@ public class ScoreManager : GenericSingleton<ScoreManager>
 
     private void Start() 
     {
+        if(ScoreManager.Instance == null)
+        {
+            return;
+        }
+        DontDestroyOnLoad(this);
         OnScoreSet += SetScore;
         OnScoreIncreased += IncreaseScore;   
     }
@@ -30,5 +36,27 @@ public class ScoreManager : GenericSingleton<ScoreManager>
     private void SetScore(float score)
     {
         _currentScore = score;
+    }
+
+    private void OnSceneLoaded(Scene scene,LoadSceneMode mode)
+    {
+        for(int i = 0; i < transform.childCount; i++)
+        {
+            if(scene.name.StartsWith("Level"))
+            {
+                transform.GetChild(i).gameObject.SetActive(true);
+            }
+            else
+            {
+                transform.GetChild(i).gameObject.SetActive(false);
+            }
+        }
+        
+    }
+
+    private void OnDestroy() 
+    {
+        OnScoreSet -= SetScore;
+        OnScoreIncreased -= IncreaseScore;    
     }
 }

@@ -18,6 +18,7 @@ public class ButtonFunction : MonoBehaviour
     public void RestartGame()
     {
         GameManager.Instance?.ReloadCurrentLevel();
+        ScoreManager.Instance.OnScoreSet?.Invoke(0);
     }
     public void BackToMain()
     {

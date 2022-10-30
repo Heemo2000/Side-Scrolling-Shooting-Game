@@ -35,6 +35,7 @@ public abstract class BaseEnemy : MonoBehaviour
 
     protected void DestroyEnemy()
     {
+        SoundManager.Instance?.PlaySFXInstantly(SoundType.Explosion);
         Instantiate(destroyEffect,transform.position,Quaternion.identity);
         Destroy(_healthBar.gameObject);
         Destroy(gameObject);

@@ -28,8 +28,7 @@ public class SoundManager : GenericSingleton<SoundManager>
 
     private void Start() 
     {
-        PlayMusic(startingMusic);
-        SceneManager.sceneLoaded += OnSceneLoaded;
+        //PlayMusic(startingMusic);
     }
 
     public void PlayMusic(SoundType soundType)
@@ -40,6 +39,11 @@ public class SoundManager : GenericSingleton<SoundManager>
     public void PlaySFX(SoundType soundType)
     {
         Play(soundType,sfxAudioSource);
+    }
+    
+    public void PlaySFXInstantly(SoundType soundType)
+    {
+        Play(soundType,sfxAudioSource,true);
     }
 
     public void PauseMusic()
@@ -77,7 +81,7 @@ public class SoundManager : GenericSingleton<SoundManager>
     {
         sfxAudioMixer.SetFloat("sfxVol",volume);
     }
-    private void Play(SoundType soundType,AudioSource source)
+    private void Play(SoundType soundType,AudioSource source,bool oneShot = false)
     {
         if(soundDictionary.TryGetValue(soundType,out Sound sound))
         {
@@ -85,23 +89,19 @@ public class SoundManager : GenericSingleton<SoundManager>
             source.pitch = sound.pitch;
             source.loop = sound.loop;
             source.volume = sound.volume;
-            source.Play();
+            if(oneShot)
+            {
+                source.PlayOneShot(sound.clip);
+            }
+            else
+            {
+                source.Play();
+            }
+            
         }
         else
         {
             Debug.Log("Sound to play not found!!");
         }        
-    }
-
-    private void OnSceneLoaded(Scene scene,LoadSceneMode mode)
-    {
-        if(scene.name == "MainMenu")
-        {
-            PlayMusic(SoundType.MainMenuTheme);
-        }
-    }
-
-    private void OnDestroy() {
-        SceneManager.sceneLoaded -= OnSceneLoaded;
     }
 }

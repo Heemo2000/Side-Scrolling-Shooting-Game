@@ -143,6 +143,9 @@ MonoBehaviour:
   - {fileID: 3913622095999872783, guid: cf2d9f57f55e9f840b983ad6571d45a6, type: 3}
   - {fileID: 6367928939034758423, guid: a4a12fb018176b146b883eef1ed93d6a, type: 3}
   powerupSpawnPos: {fileID: 6420514729889763156}
+  powerupSpawnProbability: 0.5
+  destroyEffect: {fileID: 4941061384096392757, guid: e107d4504c02931448876f875da13555,
+    type: 3}
   lookOffSetY: 2
   firePoint: {fileID: 5851154335501095016}
   targetCheckDistance: 20

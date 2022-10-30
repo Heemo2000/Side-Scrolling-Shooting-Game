@@ -26,8 +26,15 @@ public class PlayerWeaponManager : MonoBehaviour
     }
     public void OnShootInput(InputAction.CallbackContext context)
     {
-        float input = context.ReadValue<float>();
-        _firePressed = input == 1;
+        if(GameManager.Instance.IsGameEnded == false && PauseController.Instance.IsGamePaused == false)
+        {
+            float input = context.ReadValue<float>();
+            _firePressed = input == 1;
+        }
+        else
+        {
+            _firePressed = false;
+        }
     }
 
     private void FireWeapon()
@@ -52,4 +59,5 @@ public class PlayerWeaponManager : MonoBehaviour
         Vector3 fireShakeVelocity = Vector3.forward * Random.Range(0.0f,1.0f);
         shootImpulse.GenerateImpulse(fireShakeVelocity);
     }
+    
 }

@@ -51,6 +51,8 @@ public class StickyBullet : NormalBullet
 
         Instantiate(explosionEffect,transform.position,Quaternion.identity);
         _explosionImpulse.GenerateImpulse();
+        SoundManager.Instance?.PlaySFXInstantly(SoundType.Explosion);
+        
     }
     protected override void OnTriggerEnter(Collider other) 
     {

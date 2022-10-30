@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6918916467523250792}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Powerup Graphic
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -44,7 +44,7 @@ GameObject:
   - component: {fileID: 6918916467868058523}
   - component: {fileID: 6918916467868058522}
   - component: {fileID: 6918916467868058521}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Sticky Bullet Powerup
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -110,6 +110,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rotateSpeed: 33.5
   powerupGraphic: {fileID: 6918916467523250792}
+  ignoreTrigger:
+    serializedVersion: 2
+    m_Bits: 1028
   bulletData: {fileID: 11400000, guid: 38b36c937ecce3342b40ccaaf1f0f329, type: 2}
 --- !u!1001 &6918916468634139806
 PrefabInstance:
@@ -124,7 +127,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 100000, guid: 03098a32e91c01b43bf4eb8acafb464c, type: 3}
       propertyPath: m_Layer
-      value: 0
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 03098a32e91c01b43bf4eb8acafb464c, type: 3}
       propertyPath: m_RootOrder

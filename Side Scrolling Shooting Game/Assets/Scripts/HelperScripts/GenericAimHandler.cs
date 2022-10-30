@@ -52,4 +52,8 @@ public class GenericAimHandler : MonoBehaviour
     {
         _targetAimPosition = aimPosition;
     }
+
+    private void OnDestroy() {
+        Destroy(_aimPointerPrimitive);
+    }
 }

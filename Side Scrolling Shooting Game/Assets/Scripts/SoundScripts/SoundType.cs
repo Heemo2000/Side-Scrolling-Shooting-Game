@@ -8,5 +8,6 @@ public enum SoundType
     MainMenuTheme,
     LevelTheme,
     BulletShootSound,
-    ButtonClick
+    ButtonClick,
+    Explosion
 }
