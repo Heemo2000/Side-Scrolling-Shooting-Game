@@ -5,7 +5,6 @@ using UnityEngine.InputSystem;
 
 public class PlayerMovement : MonoBehaviour
 {
-    private const float AimCheckForwardOffSet = 2.5f;
     [Min(1f)]
     [SerializeField]private float xInputSpeed = 5f;
     [Min(0f)]
@@ -28,15 +27,10 @@ public class PlayerMovement : MonoBehaviour
 
     [SerializeField]private LayerMask groundCheckIgnore;
 
-    [SerializeField]private LayerMask aimMask;
 
     [Min(0f)]
     [SerializeField]private float fallMultiplier = 1.5f;
     [SerializeField]private Animator playerAnimator;
-
-    [SerializeField]private float aimCheckRadius = 2f;
-    [SerializeField]private float aimCheckMaxDistance = 10f;
-
     private CharacterController _controller;
     private float _gravity;
     private float _velocityY;
@@ -48,28 +42,32 @@ public class PlayerMovement : MonoBehaviour
 
     private float _smoothedXInput;
     private PlayerInput _playerInput;
-    private Plane _plane;
-    private Vector3 _mouseWorldPos;
+    
+    private Vector3 _aimPos;
 
     private GenericAimHandler _aimHandler;
     private float _lockedZPosition = 0f;
-    public Vector3 MouseWorldPos { get => _mouseWorldPos; }
+
+    private AndroidInputManager _inputManager;
+    public Vector3 MouseWorldPos { get => _aimPos; }
     public GenericAimHandler AimHandler { get => _aimHandler; }
+    public AndroidInputManager InputManager { get => _inputManager; }
 
     void Awake() {
          _controller = GetComponent<CharacterController>();
          _controller.detectCollisions = false;
          
          _playerInput = GetComponent<PlayerInput>();
+         _inputManager = GetComponent<AndroidInputManager>();
          _aimHandler = GetComponent<GenericAimHandler>();
 
-         _plane = new Plane(Vector3.forward,transform.position);
+         
          _currentRotation = 0f;
          _velocityY = 0f;
     }
     private void Start() 
     {
-        _lockedZPosition = transform.position.z;
+        _lockedZPosition = transform.position.z;  
     }
 
     private void Update() 
@@ -83,7 +81,7 @@ public class PlayerMovement : MonoBehaviour
         {
             playerAnimator.enabled = true;
         }
-        _aimHandler.SetAimPosition(_mouseWorldPos);    
+       // _aimHandler.SetAimPosition(_aimPos);    
     }
 
     private void FixedUpdate() 
@@ -119,35 +117,9 @@ public class PlayerMovement : MonoBehaviour
 
     public void OnMousePositionInput(InputAction.CallbackContext context)
     {
-        if(PauseController.Instance.IsGamePaused)
-        {
-            return;
-        }
-        _plane.SetNormalAndPosition(Vector3.forward,transform.position);
-        Vector3 mouseOnScreenPos = context.ReadValue<Vector2>();
-
-        Vector3 viewPort = _playerInput.camera.ScreenToViewportPoint(mouseOnScreenPos);
-
-        bool isMousePointerInside = (viewPort.x >= 0f && viewPort.x <= 1f) && (viewPort.y >= 0f && viewPort.y <= 1f);
         
-        if(!isMousePointerInside)
-        {
-            return;
-        }
-
-        Ray ray = _playerInput.camera.ScreenPointToRay(mouseOnScreenPos);
-
-        if(_plane.Raycast(ray,out float distance))
-        {
-            _mouseWorldPos = ray.origin + ray.direction * distance;            
-            if(Physics.SphereCast(_mouseWorldPos - Vector3.forward * AimCheckForwardOffSet,aimCheckRadius,Vector3.forward,out RaycastHit hit,aimCheckMaxDistance,aimMask.value))
-            {
-                _mouseWorldPos = hit.transform.position;
-            }
-            
-            _aimHandler.SetAimPosition(_mouseWorldPos);
-        }
     }
+    
 
     private void Jump()
     {
@@ -165,9 +137,11 @@ public class PlayerMovement : MonoBehaviour
         _initialJumpVelocity = 2f * jumpHeight/halfJumpTime;
     }
 
+    
+    
     private void HandleRotation()
     {
-        Vector3 mouseDirection = (_mouseWorldPos - transform.position).normalized;
+        Vector3 mouseDirection = (_aimPos - transform.position).normalized;
         
         float targetRotation = 0f;
         if(mouseDirection.x >= 0f)
@@ -188,7 +162,7 @@ public class PlayerMovement : MonoBehaviour
         CalculateParameters();
         _smoothedXInput = Mathf.Lerp(_smoothedXInput,_xInput,xInputSpeed * Time.deltaTime);
 
-        Vector3 mouseDirection = (_mouseWorldPos - transform.position).normalized;
+        Vector3 mouseDirection = (_aimPos - transform.position).normalized;
         
         float animMoveInput = (Mathf.Sign(mouseDirection.x) == Mathf.Sign(_smoothedXInput)) ? 1f : -1f;
 

@@ -7,6 +7,7 @@ using UnityEngine.SceneManagement;
 public class GameManager : GenericSingleton<GameManager>
 {
     [SerializeField]private Player playerPrefab;
+    [SerializeField]private InputStick stick;
     public UnityEvent OnMainMenuLoad;
     public UnityEvent OnLevelStart;
     public UnityEvent OnLevelComplete;
@@ -42,6 +43,8 @@ public class GameManager : GenericSingleton<GameManager>
         _player = Instantiate(playerPrefab,levelStartingPoint.transform.position,Quaternion.identity);      
         PlayerInput playerInput = _player.GetComponent<PlayerInput>();
         playerInput.camera = Camera.main;
+        _player.GetComponent<PlayerMovement>().InputManager.Stick = stick;
+        _player.GetComponent<GenericAimHandler>().LookCamera = Camera.main;
     }
 
     public Vector3 GetPlayerPosition()
