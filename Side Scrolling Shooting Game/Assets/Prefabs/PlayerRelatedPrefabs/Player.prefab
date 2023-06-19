@@ -1163,7 +1163,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 6815911563285318464}
         m_TargetAssemblyTypeName: PlayerMovement, Assembly-CSharp
-        m_MethodName: OnMousePositionInput
+        m_MethodName: OnAimInput
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1215,17 +1215,18 @@ MonoBehaviour:
   groundCheck: {fileID: 6815911563730132135}
   groundCheckDist: 0.1
   maxGroundCheckDist: 0.8
+  aimCheckRadius: 2
+  aimCheckMaxDistance: 10
   jumpHeight: 3
   groundCheckIgnore:
     serializedVersion: 2
     m_Bits: 2060
-  aimMask:
-    serializedVersion: 2
-    m_Bits: 256
   fallMultiplier: 1.5
   playerAnimator: {fileID: 2823826751439880560}
-  aimCheckRadius: 0.5
-  aimCheckMaxDistance: 10
+  aimMask:
+    serializedVersion: 2
+    m_Bits: 128
+  firePoint: {fileID: 2142296790}
 --- !u!114 &6815911563266768095
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1245,6 +1246,7 @@ MonoBehaviour:
   - {fileID: 2107374588}
   - {fileID: 216439153}
   - {fileID: 819501020}
+  showAimPoint: 1
 --- !u!65 &6815911563266768096
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1273,7 +1275,7 @@ MonoBehaviour:
   gun: {fileID: 2064733925}
   ignoreMask:
     serializedVersion: 2
-    m_Bits: 65
+    m_Bits: 265
   shootImpulse: {fileID: 412364887}
   player: {fileID: 6815911563285318464}
 --- !u!114 &6776367244928521146

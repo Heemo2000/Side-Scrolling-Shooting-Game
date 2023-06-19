@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ignoreMask:
     serializedVersion: 2
-    m_Bits: 1164
+    m_Bits: 1804
   damage: 25
   moveSpeed: 2
   destroyTime: 5

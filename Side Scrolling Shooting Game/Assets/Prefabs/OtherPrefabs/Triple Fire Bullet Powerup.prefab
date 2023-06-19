@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6367928938574537958}
-  m_Layer: 7
+  m_Layer: 8
   m_Name: Powerup Graphic
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -46,7 +46,7 @@ GameObject:
   - component: {fileID: 6367928939034758421}
   - component: {fileID: 6367928939034758420}
   - component: {fileID: 6367928939034758423}
-  m_Layer: 7
+  m_Layer: 8
   m_Name: Triple Fire Bullet Powerup
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -126,7 +126,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 100000, guid: 03098a32e91c01b43bf4eb8acafb464c, type: 3}
       propertyPath: m_Layer
-      value: 7
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 03098a32e91c01b43bf4eb8acafb464c, type: 3}
       propertyPath: m_RootOrder
@@ -209,7 +209,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 100000, guid: 03098a32e91c01b43bf4eb8acafb464c, type: 3}
       propertyPath: m_Layer
-      value: 7
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 03098a32e91c01b43bf4eb8acafb464c, type: 3}
       propertyPath: m_RootOrder
@@ -292,7 +292,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 100000, guid: 03098a32e91c01b43bf4eb8acafb464c, type: 3}
       propertyPath: m_Layer
-      value: 7
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 03098a32e91c01b43bf4eb8acafb464c, type: 3}
       propertyPath: m_RootOrder
