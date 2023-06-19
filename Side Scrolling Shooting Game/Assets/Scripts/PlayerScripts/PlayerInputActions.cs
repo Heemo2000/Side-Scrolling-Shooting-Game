@@ -46,7 +46,7 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
                     ""initialStateCheck"": false
                 },
                 {
-                    ""name"": ""Player Mouse Pointer"",
+                    ""name"": ""AimInput"",
                     ""type"": ""Value"",
                     ""id"": ""077030b6-fb6d-4321-bb1c-76bfce4c2a57"",
                     ""expectedControlType"": ""Vector2"",
@@ -144,28 +144,39 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": """",
+                    ""id"": ""346ae3fd-0be3-4419-bdb7-3e515cddce1d"",
+                    ""path"": ""<Gamepad>/buttonSouth"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Jump"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
                     ""id"": ""e7cd2c32-b865-464f-bd7a-d82ab925604c"",
                     ""path"": ""<Mouse>/position"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""Player Mouse Pointer"",
+                    ""action"": ""AimInput"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
                 {
                     ""name"": """",
                     ""id"": ""bbc7afbb-4106-4873-bb95-875292a7d510"",
-                    ""path"": ""<Pointer>/position"",
+                    ""path"": ""<Gamepad>/leftStick"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""Player Mouse Pointer"",
+                    ""action"": ""AimInput"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
                 {
-                    ""name"": ""1D Axis"",
+                    ""name"": ""Keyboard Input"",
                     ""id"": ""a4ea182e-4dca-49c0-bd1b-9c735592ed20"",
                     ""path"": ""1DAxis(minValue=0,whichSideWins=2)"",
                     ""interactions"": """",
@@ -196,6 +207,39 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
                     ""action"": ""Fire"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""Gamepad Input"",
+                    ""id"": ""c9291d76-d605-4bee-8162-ccc4957252b8"",
+                    ""path"": ""1DAxis"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Fire"",
+                    ""isComposite"": true,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""negative"",
+                    ""id"": ""f3f6e494-72d9-431f-a4f1-f60945849634"",
+                    ""path"": """",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Fire"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""positive"",
+                    ""id"": ""960ac5b5-f54c-411d-9a62-6018dc55dc8e"",
+                    ""path"": ""<Gamepad>/buttonWest"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Fire"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
                 }
             ]
         }
@@ -206,7 +250,7 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
         m_PlayerActionMap = asset.FindActionMap("Player Action Map", throwIfNotFound: true);
         m_PlayerActionMap_XMovement = m_PlayerActionMap.FindAction("X Movement", throwIfNotFound: true);
         m_PlayerActionMap_Jump = m_PlayerActionMap.FindAction("Jump", throwIfNotFound: true);
-        m_PlayerActionMap_PlayerMousePointer = m_PlayerActionMap.FindAction("Player Mouse Pointer", throwIfNotFound: true);
+        m_PlayerActionMap_AimInput = m_PlayerActionMap.FindAction("AimInput", throwIfNotFound: true);
         m_PlayerActionMap_Fire = m_PlayerActionMap.FindAction("Fire", throwIfNotFound: true);
     }
 
@@ -269,7 +313,7 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
     private IPlayerActionMapActions m_PlayerActionMapActionsCallbackInterface;
     private readonly InputAction m_PlayerActionMap_XMovement;
     private readonly InputAction m_PlayerActionMap_Jump;
-    private readonly InputAction m_PlayerActionMap_PlayerMousePointer;
+    private readonly InputAction m_PlayerActionMap_AimInput;
     private readonly InputAction m_PlayerActionMap_Fire;
     public struct PlayerActionMapActions
     {
@@ -277,7 +321,7 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
         public PlayerActionMapActions(@PlayerInputActions wrapper) { m_Wrapper = wrapper; }
         public InputAction @XMovement => m_Wrapper.m_PlayerActionMap_XMovement;
         public InputAction @Jump => m_Wrapper.m_PlayerActionMap_Jump;
-        public InputAction @PlayerMousePointer => m_Wrapper.m_PlayerActionMap_PlayerMousePointer;
+        public InputAction @AimInput => m_Wrapper.m_PlayerActionMap_AimInput;
         public InputAction @Fire => m_Wrapper.m_PlayerActionMap_Fire;
         public InputActionMap Get() { return m_Wrapper.m_PlayerActionMap; }
         public void Enable() { Get().Enable(); }
@@ -294,9 +338,9 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
                 @Jump.started -= m_Wrapper.m_PlayerActionMapActionsCallbackInterface.OnJump;
                 @Jump.performed -= m_Wrapper.m_PlayerActionMapActionsCallbackInterface.OnJump;
                 @Jump.canceled -= m_Wrapper.m_PlayerActionMapActionsCallbackInterface.OnJump;
-                @PlayerMousePointer.started -= m_Wrapper.m_PlayerActionMapActionsCallbackInterface.OnPlayerMousePointer;
-                @PlayerMousePointer.performed -= m_Wrapper.m_PlayerActionMapActionsCallbackInterface.OnPlayerMousePointer;
-                @PlayerMousePointer.canceled -= m_Wrapper.m_PlayerActionMapActionsCallbackInterface.OnPlayerMousePointer;
+                @AimInput.started -= m_Wrapper.m_PlayerActionMapActionsCallbackInterface.OnAimInput;
+                @AimInput.performed -= m_Wrapper.m_PlayerActionMapActionsCallbackInterface.OnAimInput;
+                @AimInput.canceled -= m_Wrapper.m_PlayerActionMapActionsCallbackInterface.OnAimInput;
                 @Fire.started -= m_Wrapper.m_PlayerActionMapActionsCallbackInterface.OnFire;
                 @Fire.performed -= m_Wrapper.m_PlayerActionMapActionsCallbackInterface.OnFire;
                 @Fire.canceled -= m_Wrapper.m_PlayerActionMapActionsCallbackInterface.OnFire;
@@ -310,9 +354,9 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
                 @Jump.started += instance.OnJump;
                 @Jump.performed += instance.OnJump;
                 @Jump.canceled += instance.OnJump;
-                @PlayerMousePointer.started += instance.OnPlayerMousePointer;
-                @PlayerMousePointer.performed += instance.OnPlayerMousePointer;
-                @PlayerMousePointer.canceled += instance.OnPlayerMousePointer;
+                @AimInput.started += instance.OnAimInput;
+                @AimInput.performed += instance.OnAimInput;
+                @AimInput.canceled += instance.OnAimInput;
                 @Fire.started += instance.OnFire;
                 @Fire.performed += instance.OnFire;
                 @Fire.canceled += instance.OnFire;
@@ -324,7 +368,7 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
     {
         void OnXMovement(InputAction.CallbackContext context);
         void OnJump(InputAction.CallbackContext context);
-        void OnPlayerMousePointer(InputAction.CallbackContext context);
+        void OnAimInput(InputAction.CallbackContext context);
         void OnFire(InputAction.CallbackContext context);
     }
 }

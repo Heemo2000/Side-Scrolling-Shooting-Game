@@ -5,6 +5,9 @@ using UnityEngine.InputSystem;
 
 public class PlayerMovement : MonoBehaviour
 {
+    private const float MaxAimCircleSize = 5f;
+    private const float AimCheckForwardOffSet = 2.5f;
+    
     [Min(1f)]
     [SerializeField]private float xInputSpeed = 5f;
     [Min(0f)]
@@ -21,16 +24,18 @@ public class PlayerMovement : MonoBehaviour
 
     [Range(0.1f,2.5f)]
     [SerializeField]private float maxGroundCheckDist = 1.0f;
-
+    [SerializeField]private float aimCheckRadius = 2f;
+    [SerializeField]private float aimCheckMaxDistance = 10f;
     [Min(0f)]
     [SerializeField]private float jumpHeight = 10f;
 
     [SerializeField]private LayerMask groundCheckIgnore;
 
-
     [Min(0f)]
     [SerializeField]private float fallMultiplier = 1.5f;
     [SerializeField]private Animator playerAnimator;
+    [SerializeField]private LayerMask aimMask;
+    [SerializeField]private Transform firePoint;
     private CharacterController _controller;
     private float _gravity;
     private float _velocityY;
@@ -48,17 +53,14 @@ public class PlayerMovement : MonoBehaviour
     private GenericAimHandler _aimHandler;
     private float _lockedZPosition = 0f;
 
-    private AndroidInputManager _inputManager;
     public Vector3 MouseWorldPos { get => _aimPos; }
     public GenericAimHandler AimHandler { get => _aimHandler; }
-    public AndroidInputManager InputManager { get => _inputManager; }
 
     void Awake() {
          _controller = GetComponent<CharacterController>();
          _controller.detectCollisions = false;
          
          _playerInput = GetComponent<PlayerInput>();
-         _inputManager = GetComponent<AndroidInputManager>();
          _aimHandler = GetComponent<GenericAimHandler>();
 
          
@@ -80,8 +82,7 @@ public class PlayerMovement : MonoBehaviour
         else if(PauseController.Instance.IsGamePaused == false)
         {
             playerAnimator.enabled = true;
-        }
-       // _aimHandler.SetAimPosition(_aimPos);    
+        }    
     }
 
     private void FixedUpdate() 
@@ -95,6 +96,7 @@ public class PlayerMovement : MonoBehaviour
 
     public void OnXInput(InputAction.CallbackContext context)
     {
+        Debug.Log("Getting input from " + context.control.device);
         if(PauseController.Instance.IsGamePaused)
         {
             return;
@@ -115,9 +117,20 @@ public class PlayerMovement : MonoBehaviour
            
     }
 
-    public void OnMousePositionInput(InputAction.CallbackContext context)
+    public void OnAimInput(InputAction.CallbackContext context)
     {
-        
+        Vector3 aimDirection = context.ReadValue<Vector2>();
+        if(Mathf.Approximately(aimDirection.magnitude,0f))
+        {
+            return;
+        }
+        Vector3 estimatedAimPosition = transform.position + new Vector3(aimDirection.x, aimDirection.y) * MaxAimCircleSize;
+        if(Physics.SphereCast(firePoint.position,aimCheckRadius,aimDirection,out RaycastHit hit,aimCheckMaxDistance,aimMask.value))
+        {
+            estimatedAimPosition = hit.transform.position;
+        }
+        _aimHandler.SetAimPosition(estimatedAimPosition);
+        _aimPos = estimatedAimPosition;
     }
     
 
@@ -141,10 +154,10 @@ public class PlayerMovement : MonoBehaviour
     
     private void HandleRotation()
     {
-        Vector3 mouseDirection = (_aimPos - transform.position).normalized;
+        Vector3 direction = (_aimPos - transform.position).normalized;
         
         float targetRotation = 0f;
-        if(mouseDirection.x >= 0f)
+        if(direction.x >= 0f)
         {
              targetRotation = 0f;
         }
@@ -162,9 +175,9 @@ public class PlayerMovement : MonoBehaviour
         CalculateParameters();
         _smoothedXInput = Mathf.Lerp(_smoothedXInput,_xInput,xInputSpeed * Time.deltaTime);
 
-        Vector3 mouseDirection = (_aimPos - transform.position).normalized;
+        Vector3 direction = (_aimPos - transform.position).normalized;
         
-        float animMoveInput = (Mathf.Sign(mouseDirection.x) == Mathf.Sign(_smoothedXInput)) ? 1f : -1f;
+        float animMoveInput = (Mathf.Sign(direction.x) == Mathf.Sign(_smoothedXInput)) ? 1f : -1f;
 
         animMoveInput *= Mathf.Abs(_smoothedXInput);
         
