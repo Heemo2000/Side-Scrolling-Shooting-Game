@@ -10,41 +10,51 @@ public class Gun : MonoBehaviour
     [SerializeField]private Transform firePoint;
 
     [SerializeField]private CommonBulletData defaultBulletData;
-
     [SerializeField]private AudioSource gunAudioSource;
+    [SerializeField]private Bullet[] bulletPrefabs;
     public UnityEvent OnBulletShoot;
     private float _nextTimeToFire = 0.0f;
 
     private CommonBulletData _currentBulletData;
-
     private void Start() 
     {
-        _currentBulletData = defaultBulletData;    
-    }    
+        _currentBulletData = defaultBulletData;
+    }
+
     public void Fire()
     {
+
         fireInterval = defaultBulletData.fireInterval;
         if(_nextTimeToFire < Time.time)
         {
             OnBulletShoot?.Invoke();
             Quaternion initialRotation = Quaternion.LookRotation(firePoint.forward,firePoint.right);
+            
             if(_currentBulletData.tripleFire)
             {
                 Quaternion firstBulletRotation = initialRotation * Quaternion.AngleAxis(30f,Vector3.up);
                 Quaternion thirdBulletRotation = initialRotation * Quaternion.AngleAxis(-30f,Vector3.up);
 
-                Bullet firstBullet = Instantiate(_currentBulletData.bulletPrefab,firePoint.position,firstBulletRotation);
+                Bullet firstBullet = ObjectPoolManager.Instance.ReuseObject(_currentBulletData.bulletPrefab.gameObject,
+                                                                            firePoint.position,
+                                                                            firstBulletRotation) as Bullet;
                 firstBullet.BulletData = _currentBulletData;
 
-                Bullet secondBullet = Instantiate(_currentBulletData.bulletPrefab,firePoint.position,initialRotation);
+                Bullet secondBullet = ObjectPoolManager.Instance.ReuseObject(_currentBulletData.bulletPrefab.gameObject,
+                                                                             firePoint.position,
+                                                                             initialRotation) as Bullet;
                 secondBullet.BulletData = _currentBulletData;
 
-                Bullet thirdBullet = Instantiate(_currentBulletData.bulletPrefab,firePoint.position,thirdBulletRotation);
+                Bullet thirdBullet = ObjectPoolManager.Instance.ReuseObject(_currentBulletData.bulletPrefab.gameObject,
+                                                                            firePoint.position,
+                                                                            thirdBulletRotation) as Bullet;
                 thirdBullet.BulletData = _currentBulletData;
             }
             else
             {
-                Bullet bullet = Instantiate(_currentBulletData.bulletPrefab,firePoint.position,initialRotation);
+                Bullet bullet = ObjectPoolManager.Instance.ReuseObject(_currentBulletData.bulletPrefab.gameObject,
+                                                                       firePoint.position,
+                                                                       initialRotation) as Bullet;
                 bullet.BulletData = _currentBulletData;
             } 
             

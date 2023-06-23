@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class BaseEnemy : MonoBehaviour
+public abstract class BaseEnemy : PoolObject
 {
     [SerializeField]private Transform target;
     [SerializeField]private BarsUI healthBarPrefab;
@@ -17,7 +17,6 @@ public abstract class BaseEnemy : MonoBehaviour
     public Powerup[] PowerupsToSpawn { get => powerupsToSpawn; set => powerupsToSpawn = value; }
 
     private Health _enemyHealth;
-    private BarsUI _healthBar;
     protected virtual void Awake()
     {
         _enemyHealth = GetComponent<Health>();
@@ -25,10 +24,7 @@ public abstract class BaseEnemy : MonoBehaviour
 
     protected virtual void Start()
     {
-        _healthBar = Instantiate(healthBarPrefab,transform.position,Quaternion.identity);
-        _healthBar.FollowTarget = healthBarFollowTransform;
         _enemyHealth.OnHealthDamaged += ScoreManager.Instance.OnScoreIncreased;
-        _enemyHealth.OnCurrentHealthSet += _healthBar.SetFillAmount;
         _enemyHealth.OnDeath += DestroyEnemy;
         _enemyHealth.OnDeath += SpawnPowerups;
     }
@@ -37,9 +33,9 @@ public abstract class BaseEnemy : MonoBehaviour
     {
         SoundManager.Instance?.PlaySFXInstantly(SoundType.Explosion);
         Instantiate(destroyEffect,transform.position,Quaternion.identity);
-        Destroy(_healthBar.gameObject);
-        Destroy(gameObject);
+        Destroy();
     }
+
 
     protected abstract void HandleBehaviour();
 
@@ -59,7 +55,6 @@ public abstract class BaseEnemy : MonoBehaviour
 
     private void OnDestroy()
     {
-        _enemyHealth.OnCurrentHealthSet -= _healthBar.SetFillAmount;
         _enemyHealth.OnDeath -= DestroyEnemy;
         _enemyHealth.OnDeath -= SpawnPowerups;
     }

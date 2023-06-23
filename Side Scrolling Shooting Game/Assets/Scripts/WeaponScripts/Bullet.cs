@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.VFX;
 
-public abstract class Bullet : MonoBehaviour
+public abstract class Bullet : PoolObject
 {
     private Rigidbody bulletRB;
 
@@ -28,14 +28,16 @@ public abstract class Bullet : MonoBehaviour
 
     protected virtual void Update() 
     {
+         
         if(_currentTime >= _bulletData.destroyTime)
         {
-            Destroy(gameObject);
+            Destroy();
             return;
         }
 
         _currentTime += Time.deltaTime;
     }
+
     protected virtual void OnTriggerEnter(Collider other) 
     {
         int colliderMaskValue = 1 << other.gameObject.layer;
@@ -47,10 +49,16 @@ public abstract class Bullet : MonoBehaviour
 
         Health health = other.gameObject.GetComponent<Health>();
         health?.OnHealthDamaged(_bulletData.damage);
-        Destroy(gameObject);
+        Destroy();
         
         VisualEffect destroyEffect = Instantiate(_bulletData.destroyEffect,transform.position,Quaternion.identity);
         destroyEffect.Play();
         Destroy(destroyEffect.transform.gameObject,2.0f);
+    }
+
+    public override void Reuse()
+    {
+        base.Reuse();
+        _currentTime = 0f;
     }
 }

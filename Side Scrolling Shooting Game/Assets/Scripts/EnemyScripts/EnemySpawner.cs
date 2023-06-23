@@ -20,7 +20,8 @@ public class EnemySpawner : MonoBehaviour
         int i = 0;
         while(i < enemyCount)
         {
-            BaseEnemy enemy = Instantiate(enemyPrefab,spawnPoints[_spawnPointIndex].position,Quaternion.identity);
+
+            BaseEnemy enemy = ObjectPoolManager.Instance.ReuseObject(enemyPrefab.gameObject,spawnPoints[_spawnPointIndex].position,Quaternion.identity) as BaseEnemy;
             enemy.Target = player.transform;
             yield return new WaitForSeconds(spawnInterval);
             _spawnPointIndex = (_spawnPointIndex + 1) % spawnPoints.Length;
