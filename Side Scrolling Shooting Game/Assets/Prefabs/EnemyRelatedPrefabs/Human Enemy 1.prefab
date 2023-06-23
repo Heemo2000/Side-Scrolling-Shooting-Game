@@ -402,14 +402,7 @@ MonoBehaviour:
   - {fileID: 3786567389579842285}
   - {fileID: 7883590837574878968}
   - {fileID: 4223991223200589726}
-  aimCheckRadius: 2
-  lookCamera: {fileID: 0}
-  aimCheckMaxDistance: 10
   showAimPoint: 1
-  aimMask:
-    serializedVersion: 2
-    m_Bits: 0
-  firePoint: {fileID: 0}
 --- !u!114 &694597452
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -426,6 +419,7 @@ MonoBehaviour:
   firePoint: {fileID: 8903544506609967771}
   defaultBulletData: {fileID: 11400000, guid: e010dd78c998c7f49a3e581c44f704e9, type: 2}
   gunAudioSource: {fileID: 0}
+  bulletPrefabs: []
   OnBulletShoot:
     m_PersistentCalls:
       m_Calls:
@@ -1246,6 +1240,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9500000, guid: fcb334eb247ae3e488abb081c847cf09, type: 3}
       propertyPath: m_ApplyRootMotion
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 13700000, guid: fcb334eb247ae3e488abb081c847cf09, type: 3}
+      propertyPath: m_CastShadows
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []

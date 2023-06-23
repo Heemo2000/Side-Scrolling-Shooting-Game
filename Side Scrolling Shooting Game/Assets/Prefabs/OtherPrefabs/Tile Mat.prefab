@@ -41,6 +41,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 4289447747609382813}
     m_Modifications:
+    - target: {fileID: 4840709871523979, guid: 162d2f8f57192a14ab9278fc56faf57e, type: 3}
+      propertyPath: m_CastShadows
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1092910722396494324, guid: 162d2f8f57192a14ab9278fc56faf57e,
         type: 3}
       propertyPath: m_Name
@@ -120,6 +124,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Tile Top 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4172201787302145859, guid: 3d3e1647da524af438765070d6d4fc6c,
+        type: 3}
+      propertyPath: m_CastShadows
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5114996075067899094, guid: 3d3e1647da524af438765070d6d4fc6c,
         type: 3}
@@ -244,6 +253,11 @@ PrefabInstance:
     - target: {fileID: 2005820378363319605, guid: beddc5e4d12b6024f90228d377522ea3,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4000339086522784859, guid: beddc5e4d12b6024f90228d377522ea3,
+        type: 3}
+      propertyPath: m_CastShadows
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8410973055383580539, guid: beddc5e4d12b6024f90228d377522ea3,

@@ -713,6 +713,7 @@ MonoBehaviour:
   firePoint: {fileID: 2142296790}
   defaultBulletData: {fileID: 11400000, guid: a2e0b3a6b5f1d544cb1862a792847d30, type: 2}
   gunAudioSource: {fileID: 5995609116943196964}
+  bulletPrefabs: []
   OnBulletShoot:
     m_PersistentCalls:
       m_Calls:
@@ -1128,19 +1129,7 @@ MonoBehaviour:
       m_Calls: []
   m_ActionEvents:
   - m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 6815911563285318464}
-        m_TargetAssemblyTypeName: PlayerMovement, Assembly-CSharp
-        m_MethodName: OnXInput
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
     m_ActionId: 9c2d62b6-75b1-43a3-821c-2ea2f0ceae36
     m_ActionName: Player Action Map/Movement
   - m_PersistentCalls:
@@ -2231,6 +2220,10 @@ PrefabInstance:
       objectReference: {fileID: 9100000, guid: d7ffc43c0dcfeca4a9e1eb7b9186bb5f, type: 2}
     - target: {fileID: 9500000, guid: c6acf3f29c109e4439950c8f6a85cb2b, type: 3}
       propertyPath: m_ApplyRootMotion
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 13700000, guid: c6acf3f29c109e4439950c8f6a85cb2b, type: 3}
+      propertyPath: m_CastShadows
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []

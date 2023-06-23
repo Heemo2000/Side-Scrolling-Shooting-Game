@@ -54,8 +54,6 @@ public class ExplodingEnemy : BaseEnemy
 
         _chaseState = new ExplodingEnemyChaseState(this);
         _explodeState = new ExplodingEnemyExplodeState(this);
-
-        _enemyStateMachine.AddTransition(_chaseState,_explodeState,() => Utility.CheckDistance(transform.position,Target.position,explodeDistance));
     }
 
     protected override void Start() {
@@ -63,8 +61,6 @@ public class ExplodingEnemy : BaseEnemy
         _explodeTimerUI = Instantiate(explodeTimerUIPrefab,transform.position,Quaternion.identity);
         _explodeTimerUI.FollowTarget = transform;
         _explodeTimerUI.gameObject.SetActive(false);
-        _enemyStateMachine.SetState(_chaseState);
-        
     }
 
     // Update is called once per frame
@@ -77,10 +73,6 @@ public class ExplodingEnemy : BaseEnemy
     {
         _enemyStateMachine?.OnUpdate();
     }
-    private void OnDestroy() 
-    {
-        Destroy(_explodeTimerUI.gameObject);    
-    }
 
     private void OnDrawGizmos() 
     {
@@ -91,5 +83,12 @@ public class ExplodingEnemy : BaseEnemy
         Gizmos.color = Color.green;
         Ray ray = new Ray(frontCheck.position,frontCheck.forward);
         Gizmos.DrawRay(ray);   
+    }
+
+    public override void Reuse()
+    {
+        base.Reuse();
+        _enemyStateMachine.AddTransition(_chaseState,_explodeState,() => Utility.CheckDistance(transform.position,Target.position,explodeDistance));
+        _enemyStateMachine.SetState(_chaseState);
     }
 }
