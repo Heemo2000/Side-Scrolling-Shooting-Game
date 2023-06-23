@@ -35,6 +35,7 @@ public class ExplodingEnemyExplodeState : IState
             explosionEffect.Play();
             DamageTarget();
             _explodingEnemy.EnemyHealth.OnDeath?.Invoke();
+            GameObject.Destroy(_explodingEnemy.ExplodeTimerUI.gameObject);
             return;
         }
         _explodingEnemy.ExplodeTimerUI.SetFillAmount(_remainingTime,_explodingEnemy.ExplodeTime);
