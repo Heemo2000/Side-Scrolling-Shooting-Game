@@ -94,16 +94,6 @@ public class PlayerMovement : MonoBehaviour
         HandleMovement(); 
     }
 
-    public void OnXInput(InputAction.CallbackContext context)
-    {
-        Debug.Log("Getting input from " + context.control.device);
-        if(PauseController.Instance.IsGamePaused)
-        {
-            return;
-        }
-        _xInput = context.ReadValue<Vector2>().x;   
-    }
-
     public void OnJumpInput(InputAction.CallbackContext context)
     {
         if(PauseController.Instance.IsGamePaused)
@@ -120,6 +110,19 @@ public class PlayerMovement : MonoBehaviour
     public void OnAimInput(InputAction.CallbackContext context)
     {
         Vector3 aimDirection = context.ReadValue<Vector2>();
+        
+        if(aimDirection.x >= 0.5f)
+        {
+            _xInput = 1f;
+        }
+        else if(aimDirection.x <= -0.5f)
+        {
+            _xInput = -1f;
+        }
+        else 
+        {
+            _xInput = 0f;
+        }
         if(Mathf.Approximately(aimDirection.magnitude,0f))
         {
             return;
