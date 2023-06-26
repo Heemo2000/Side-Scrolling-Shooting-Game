@@ -285,8 +285,8 @@ ParticleSystem:
     startSize:
       serializedVersion: 2
       minMaxState: 3
-      scalar: 28
-      minScalar: 15
+      scalar: 7
+      minScalar: 3.75
       maxCurve:
         serializedVersion: 2
         m_Curve:

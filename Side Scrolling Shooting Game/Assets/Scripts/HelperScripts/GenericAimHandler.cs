@@ -15,7 +15,6 @@ public class GenericAimHandler : MonoBehaviour
     private Vector3 _targetAimPosition;
 
     private Vector3 _aimDirection;
-    private Plane _plane;
 
     public Vector3 AimPosition
     {
@@ -28,9 +27,8 @@ public class GenericAimHandler : MonoBehaviour
         _aimDirection = input;
     }
 
-    private void Awake() 
+    private void Start() 
     {
-        _plane = new Plane(Vector3.forward,transform.position);
         if(aimPointerPrefab == null)
         {
             _aimPointerPrimitive = GameObject.CreatePrimitive(PrimitiveType.Sphere);
@@ -54,7 +52,6 @@ public class GenericAimHandler : MonoBehaviour
 
         rigBuilder.Build();
     }
-
 
     private void Update()
     {

@@ -1235,7 +1235,7 @@ MonoBehaviour:
   - {fileID: 2107374588}
   - {fileID: 216439153}
   - {fileID: 819501020}
-  showAimPoint: 1
+  showAimPoint: 0
 --- !u!65 &6815911563266768096
 BoxCollider:
   m_ObjectHideFlags: 0
